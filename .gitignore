@@ -6,3 +6,4 @@ postcss.config.js
 tailwind.config.js
 tailwindcss
 portfolio-server
+.air.toml

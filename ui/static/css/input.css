@@ -1,5 +1,5 @@
 @import "tailwindcss";
-
+@custom-variant dark (&:where(.dark, .dark *));
 /* Design tokens with dark mode variants using Tailwind's class-based system */
 @theme {
   /* Dark theme (for .site.dark) */
