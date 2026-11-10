@@ -8,6 +8,7 @@ import (
 
 	"github.com/julienschmidt/httprouter"
 	"github.com/justinas/alice"
+	"github.com/lshevick/ui"
 )
 
 func (app *application) routes() http.Handler {

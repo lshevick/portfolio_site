@@ -20,10 +20,10 @@ import (
 )
 
 type application struct {
-	errorLog      *log.Logger
-	infoLog       *log.Logger
-	templateCache map[string]*template.Template
-	// users         *models.UserModel
+	errorLog       *log.Logger
+	infoLog        *log.Logger
+	templateCache  map[string]*template.Template
+	users          *models.UserModel
 	sessionManager *scs.SessionManager
 	formDecoder    *form.Decoder
 }
@@ -32,15 +32,15 @@ func main() {
 	cfg := config.Load()
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	db, err := sql.Open("sqlite", "data/app.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)")
-	if err != nil {
-		errorLog.Fatal("can't connect")
-	}
-	defer db.Close()
+	// db, err := sql.Open("sqlite", "data/app.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)")
+	// if err != nil {
+	// 	errorLog.Fatal("can't connect")
+	// }
+	// defer db.Close()
 
-	if err := db.Ping(); err != nil {
-		errorLog.Fatal("can't connect")
-	}
+	// if err := db.Ping(); err != nil {
+	// 	errorLog.Fatal("can't connect")
+	// }
 
 	s, err := store.New(cfg.DBPath)
 	if err != nil {

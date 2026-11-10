@@ -7,7 +7,7 @@ import (
 	"net/http"
 
 	"github.com/justinas/nosurf"
-	"gitlab.com/lshevick/internal/models"
+	"github.com/lshevick/internal/models"
 )
 
 func secureHeaders(next http.Handler) http.Handler {
