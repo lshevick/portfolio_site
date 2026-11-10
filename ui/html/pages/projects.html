@@ -1,0 +1,69 @@
+<html lang="en" class="site">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/output.css" />
+    <title>Projects | Levi Shevick</title>
+</head>
+
+<body class="font-mono text-gray-900 bg-background">
+    {{template "nav.html" .}}
+
+    <main class="bg-background">
+        <section class="py-24 px-6 max-w-7xl mx-auto w-full scroll-mt-20">
+            <h1 class="text-4xl font-bold tracking-tight mb-2 dark:text-text text-center">Projects</h1>
+            <p class="text-xl text-muted mb-12 max-w-2xl mx-auto leading-relaxed text-center">A selection of things I've
+                built — from hardware to full-stack apps.</p>
+
+            <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 project-grid">
+                <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                    <a href="/projects/custom-keyboard" class="block group">
+                        <div
+                            class="h-48 bg-thumb-bg rounded-xl flex flex-col items-center justify-center text-muted mb-4 overflow-hidden">
+                            <img src="https://thinkserver.pig-pinecone.ts.net/apps/files_sharing/publicpreview/59Tw8HGZgDEwHWd?file=/&fileId=22023&x=1920&y=1080&a=true&etag=4c69ff6cb7e3e8cb6e060427b1d5fdcb"
+                                width="150" height="150" alt="image of a keyboard" class="group-hover:scale-105 transition-transform duration-300">
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 dark:text-text">Custom Keyboard</h3>
+                        <p class="text-muted leading-relaxed dark:text-text">Dasbob keyboard built by myself.</p>
+                        <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                    </a>
+                </article>
+                <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                    <a href="/projects/project-two" class="block group">
+                        <div
+                            class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
+                            <span class="text-6xl opacity-30 select-none">&#128193;</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Two</h3>
+                        <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
+                        <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                    </a>
+                </article>
+                <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                    <a href="/projects/project-three" class="block group">
+                        <div
+                            class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
+                            <span class="text-6xl opacity-30 select-none">&#127941;</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Three</h3>
+                        <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
+                        <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                    </a>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 px-6 bg-gray-900 dark:bg-background border-t border-surface">
+        <p class="text-muted text-center leading-relaxed">&copy; 2026 Levi. Built with HTML, CSS and Go.</p>
+    </footer>
+
+    <!-- Responsive grid (sm:/lg: utilities aren't in the compiled CSS) -->
+    <style>.project-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; } @media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } } @media (min-width: 1024px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }</style>
+    <script defer>
+        function toggleTheme() { document.documentElement.classList.toggle('dark'); }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,154 @@
+<html lang="en" class="site">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/static/css/output.css" />
+    <title>Levi Shevick | Generalist</title>
+</head>
+
+<body class="font-mono text-gray-900 bg-background">
+    {{template "nav.html" .}}
+
+    <!-- Hero section -->
+    <main class="bg-background">
+        <section class="py-24 px-6 max-w-7xl mx-auto w-full text-center scroll-mt-20">
+            <h1 class="text-4xl font-bold tracking-tight mb-2 dark:text-text">Hi, I'm Levi.</h1>
+            <p class="text-xl text-muted mb-8 max-w-2xl mx-auto leading-relaxed">Full-stack developer. Automobile
+                mechanic. Generalist problem solver.</p>
+            <a href="/projects"
+                class="inline-flex items-center justify-center border-accent text-accent py-3 px-7 rounded-md font-semibold hover:bg-accent hover:text-white transition-all duration-200 shadow-sm dark:border-[#5AA382] dark:text-[#5AA382] dark:hover:bg-[#5AA382] dark:hover:text-white">
+                See my work
+            </a>
+        </section>
+
+        <section id="about" class="py-24 px-6 scroll-mt-20 bg-gray-50 dark:bg-surface">
+            <div class="max-w-3xl mx-auto border-b border-surface">
+                <h2 class="text-3xl font-bold mb-10 tracking-tight dark:text-text">About Me</h2>
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <article
+                        class="p-6 rounded-lg hover:shadow-md transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-text">
+                            <span aria-hidden="true">&#128187;</span> Developer
+                        </h3>
+                        <p class="text-muted leading-relaxed dark:text-text">Full-stack developer building web apps
+                            end to end — from
+                            database schemas to pixel-perfect UIs.</p>
+                    </article>
+                    <article
+                        class="p-6 rounded-lg hover:shadow-md transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-text">
+                            <span aria-hidden="true">&#128295;</span> Mechanic
+                        </h3>
+                        <p class="text-muted leading-relaxed dark:text-text">Automobile mechanic who knows what it
+                            takes to diagnose a
+                            problem, fix it right, and make it last.</p>
+                    </article>
+                    <article
+                        class="p-6 rounded-lg hover:shadow-md transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2 text-gray-900 dark:text-text">
+                            <span aria-hidden="true">&#129513;</span> Problem Solver
+                        </h3>
+                        <p class="text-muted leading-relaxed dark:text-text">A generalist at heart. If it's broken —
+                            code or carburetor
+                            — I figure out how to fix it.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="skills" class="py-24 px-6 scroll-mt-20">
+            <div
+                class="max-w-3xl mx-auto bg-gray-50 dark:bg-surface border-t border-b border-surface p-8 rounded-sm">
+                <h2 class="text-3xl font-bold mb-10 tracking-tight dark:text-text">Skills</h2>
+                <ul class="list-none grid sm:grid-cols-2 gap-6 text-black dark:text-white">
+                    <li class="p-4 rounded-lg bg-gray-50 dark:bg-surface ">
+                        <strong class="dark:text-text">Frontend:</strong> HTML, CSS,
+                        JavaScript, React
+                    </li>
+                    <li class="p-4 rounded-lg bg-gray-50 dark:bg-surface">
+                        <strong class="dark:text-text">Backend:</strong> Go, Node.js,
+                        REST APIs, SQL
+                    </li>
+                    <li class="p-4 rounded-lg bg-gray-50 dark:bg-surface">
+                        <strong class="dark:text-text">Ops:</strong> Git, Docker,
+                        Linux, CI/CD
+                    </li>
+                    <li class="p-4 rounded-lg bg-gray-50 dark:bg-surface">
+                        <strong class="dark:text-text">Mechanic:</strong> Engine
+                        diagnostics, brakes,
+                        suspension, electrical systems
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="projects" class="py-24 px-6 scroll-mt-20">
+            <div class="max-w-3xl mx-auto bg-gray-50 dark:bg-surface border-t border-b border-surface">
+                <h2 class="text-3xl font-bold mb-10 tracking-tight dark:text-text">Projects</h2>
+                <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <a href="/projects/custom-keyboard" class="block group">
+                            <div
+                                class="h-48 bg-thumb-bg rounded-xl flex flex-col items-center justify-center text-muted mb-4 dark:text-gray-500 overflow-hidden">
+                                <img src="https://thinkserver.pig-pinecone.ts.net/apps/files_sharing/publicpreview/59Tw8HGZgDEwHWd?file=/&fileId=22023&x=1920&y=1080&a=true&etag=4c69ff6cb7e3e8cb6e060427b1d5fdcb"
+                                    width="150" height="150" alt="image of a keyboard" class="group-hover:scale-105 transition-transform duration-300">
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 dark:text-text">Custom Keyboard</h3>
+                            <p class="text-muted leading-relaxed dark:text-text">Dasbob keyboard built by myself.</p>
+                            <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                        </a>
+                    </article>
+                    <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <a href="/projects/project-two" class="block group">
+                            <div
+                                class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
+                                <span class="text-6xl opacity-30 select-none">&#128193;</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Two</h3>
+                            <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
+                            <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                        </a>
+                    </article>
+                    <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
+                        <a href="/projects/project-three" class="block group">
+                            <div
+                                class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
+                                <span class="text-6xl opacity-30 select-none">&#127941;</span>
+                            </div>
+                            <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Three</h3>
+                            <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
+                            <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                        </a>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-24 px-6 scroll-mt-20">
+            <div class="max-w-3xl mx-auto bg-gray-50 dark:bg-surface border-t border-b border-surface">
+                <h2 class="text-3xl font-bold mb-4 tracking-tight dark:text-text">Contact</h2>
+                <p class="text-muted mb-6 leading-relaxed dark:text-text">Want to talk shop — about code or cars?
+                    Reach out:</p>
+                <a href="mailto:levi@example.com"
+                    class="inline-flex items-center justify-center bg-brand text-white py-3 px-7 rounded-md font-semibold hover:bg-brand/90 transition-all duration-200 shadow-sm">
+                    levi@example.com
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="py-12 px-6 bg-gray-900 dark:bg-background border-t border-surface">
+        <p class="text-muted text-center leading-relaxed">&copy; 2026 Levi. Built with HTML, CSS and Go.</p>
+    </footer>
+
+    <!-- Theme toggle logic -->
+    <script defer>
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+        }
+    </script>
+</body>
+
+</html>
