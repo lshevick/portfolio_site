@@ -25,7 +25,9 @@ func (app *application) routes() http.Handler {
 
 	router.Handler(http.MethodGet, "/", dynamic.ThenFunc(app.home))
 	router.Handler(http.MethodGet, "/projects", dynamic.ThenFunc(app.projectsList))
-	router.Handler(http.MethodGet, "/projects/:slug", dynamic.ThenFunc(app.projectPage))
+	router.Handler(http.MethodGet, "/projects/custom-keyboard", dynamic.ThenFunc(app.projectCustomKeyboardPage))
+	router.Handler(http.MethodGet, "/projects/project-two", dynamic.ThenFunc(app.projectTwoPage))
+	router.Handler(http.MethodGet, "/projects/project-three", dynamic.ThenFunc(app.projectThreePage))
 
 	// router.Handler(http.MethodGet, "/user/logout", protected.ThenFunc(app.userLogoutPost))
 

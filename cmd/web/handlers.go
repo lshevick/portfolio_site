@@ -18,7 +18,17 @@ func (app *application) projectsList(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, 200, "projects.html", data)
 }
 
-func (app *application) projectPage(w http.ResponseWriter, r *http.Request) {
+func (app *application) projectCustomKeyboardPage(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
-	app.render(w, r, 200, "projects.html", data)
+	app.render(w, r, 200, "project-custom-keyboard.html", data)
+}
+
+func (app *application) projectTwoPage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+	app.render(w, r, 200, "project-project-two.html", data)
+}
+
+func (app *application) projectThreePage(w http.ResponseWriter, r *http.Request) {
+	data := app.newTemplateData(r)
+	app.render(w, r, 200, "project-project-three.html", data)
 }
