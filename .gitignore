@@ -1,9 +1,10 @@
 .git
 node_modules
 package-lock.json
+*.log
+.env
 package.json
 postcss.config.js
 tailwind.config.js
 tailwindcss
-portfolio-server
 .air.toml
