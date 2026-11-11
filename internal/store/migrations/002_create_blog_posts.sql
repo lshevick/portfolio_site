@@ -1,5 +1,5 @@
 -- 002_create_blog_posts.sql
-CREATE TABLE blog_posts (
+CREATE TABLE IF NOT EXISTS blog_posts (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     title       TEXT NOT NULL,
     slug        TEXT NOT NULL UNIQUE,       -- URL-friendly: /blog/<slug>

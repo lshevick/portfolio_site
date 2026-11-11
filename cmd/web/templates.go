@@ -3,9 +3,11 @@ package main
 import (
 	"html/template"
 	"io/fs"
+	"net/http"
 	"path/filepath"
 	"time"
 
+	"github.com/justinas/nosurf"
 	"github.com/lshevick/ui"
 )
 
@@ -13,6 +15,7 @@ type templateData struct {
 	CurrentYear int
 	CSRFToken   string
 	Flash       string
+	Username    string
 	// Form            *forms.Form
 	IsAuthenticated bool
 }
@@ -38,7 +41,7 @@ func newTemplateCache() (map[string]*template.Template, error) {
 	for _, page := range pages {
 		name := filepath.Base(page)
 		patterns := []string{
-			"html/pages/home.html",
+			"html/base.html",
 			"html/partials/*.html",
 			page,
 		}
