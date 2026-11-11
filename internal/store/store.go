@@ -26,7 +26,7 @@ func New(path string) (*Store, error) {
 //go:embed migrations/*.sql
 var migrationsFS embed.FS
 
-func (s *Store) Migrate() error {
+func (s *Store) MigrateUp() error {
 	entries, err := migrationsFS.ReadDir("migrations")
 	if err != nil {
 		return err

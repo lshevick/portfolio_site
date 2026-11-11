@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
+	"errors"
 	"html/template"
 	"log/slog"
 	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
 	"time"
 
 	"github.com/lshevick/internal/config"
@@ -29,22 +33,31 @@ type application struct {
 func main() {
 	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
+	if err := run(context.Background(), logger); err != nil {
+		logger.Error("fatal error", "err", err)
+		os.Exit(1)
+	}
+}
+
+func run(ctx context.Context, logger *slog.Logger) error {
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
 	cfg := config.Load()
 
 	s, err := store.New(cfg.DBPath)
 	if err != nil {
-		slog.Error("opening store", "err", err)
-		os.Exit(1)
+		return err
 	}
-	if err := s.Migrate(); err != nil {
-		slog.Error("running migrations", "err", err)
-		os.Exit(1)
+	defer s.DB.Close()
+
+	if err := s.MigrateUp(); err != nil {
+		return err
 	}
 
 	templateCache, err := newTemplateCache()
 	if err != nil {
-		slog.Error("error loading teplatecache...", "err", err)
-		return
+		return err
 	}
 
 	sessionManager := scs.New()
@@ -67,11 +80,38 @@ func main() {
 		Handler: app.routes(),
 	}
 
-	slog.Info("starting server", "port", cfg.Port)
-	if err := server.ListenAndServe(); err != nil {
-		slog.Error("server error", "err", err)
-		os.Exit(1)
+	serverErr := make(chan error, 1)
+	go func() {
+		logger.Info("starting server", "addr", cfg.Port)
+		err := server.ListenAndServe()
+		if err != nil && !errors.Is(err, http.ErrServerClosed) {
+			serverErr <- err
+			return
+		}
+		serverErr <- nil
+	}()
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+
+	select {
+	case err := <-serverErr:
+		return err
+	case sig := <-stop:
+		logger.Info("shutting down", "signal", sig.String())
 	}
+
+	cancel()
+
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer shutdownCancel()
+
+	return server.Shutdown(shutdownCtx)
+
+	// 	slog.Info("starting server", "port", cfg.Port)
+	// 	if err := server.ListenAndServe(); err != nil {
+	// 		slog.Error("server error", "err", err)
+	// 		os.Exit(1)
+	// 	}
 	//////////
 	// uiDir := os.Getenv("UI_DIR")
 	// if uiDir == "" {
