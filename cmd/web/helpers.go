@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"errors"
 	"fmt"
+	"log/slog"
 	"net/http"
 	"runtime/debug"
 
@@ -11,12 +12,14 @@ import (
 	"github.com/justinas/nosurf"
 )
 
-func (app *application) serverError(w http.ResponseWriter, err error) {
-	trace := fmt.Sprintf("%s\n%s", err.Error(), debug.Stack())
-	if err := app.errorLog.Output(2, trace); err != nil {
-		app.errorLog.Println("issue with printing error logs", err)
-	}
+func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
+	var (
+		method = r.Method
+		uri    = r.URL.RequestURI()
+		trace  = string(debug.Stack())
+	)
 
+	app.logger.Error(err.Error(), "method", method, "uri", uri, "trace", trace)
 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 }
 
@@ -38,23 +41,24 @@ func (app *application) addDefaultData(td *templateData, r *http.Request) *templ
 }
 
 func (app *application) render(w http.ResponseWriter, r *http.Request, status int, page string, data templateData) {
-	app.infoLog.Printf("%s\n", page)
+	slog.Info("\n", "page", page)
+
 	ts, ok := app.templateCache[page]
 	if !ok {
-		app.serverError(w, fmt.Errorf("the template %s does not exist", page))
+		app.serverError(w, r, fmt.Errorf("the template %s does not exist", page))
 		return
 	}
 	buff := new(bytes.Buffer)
 	err := ts.ExecuteTemplate(buff, "base", data)
 	if err != nil {
-		app.serverError(w, err)
+		app.serverError(w, r, err)
 		return
 	}
 
 	w.WriteHeader(status)
 
 	if _, err = buff.WriteTo(w); err != nil {
-		app.serverError(w, err)
+		app.serverError(w, r, err)
 		return
 	}
 }

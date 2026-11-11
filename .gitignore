@@ -2,6 +2,10 @@
 node_modules
 package-lock.json
 *.log
+*.db
+*.db-shm
+*.db-wal
+tmp/
 .env
 package.json
 postcss.config.js

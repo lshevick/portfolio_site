@@ -1,9 +1,7 @@
 package main
 
 import (
-	"database/sql"
 	"html/template"
-	"log"
 	"log/slog"
 	"net/http"
 	"os"
@@ -20,27 +18,18 @@ import (
 )
 
 type application struct {
-	errorLog       *log.Logger
-	infoLog        *log.Logger
+	logger         *slog.Logger
 	templateCache  map[string]*template.Template
 	users          *models.UserModel
 	sessionManager *scs.SessionManager
 	formDecoder    *form.Decoder
+	store          *store.Store
 }
 
 func main() {
-	cfg := config.Load()
-	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	// db, err := sql.Open("sqlite", "data/app.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)")
-	// if err != nil {
-	// 	errorLog.Fatal("can't connect")
-	// }
-	// defer db.Close()
+	logger := slog.New(slog.NewTextHandler(os.Stdout, nil))
 
-	// if err := db.Ping(); err != nil {
-	// 	errorLog.Fatal("can't connect")
-	// }
+	cfg := config.Load()
 
 	s, err := store.New(cfg.DBPath)
 	if err != nil {
@@ -54,27 +43,28 @@ func main() {
 
 	templateCache, err := newTemplateCache()
 	if err != nil {
-		errorLog.Fatal(err)
+		slog.Error("error loading teplatecache...", "err", err)
+		return
 	}
 
 	sessionManager := scs.New()
-	sessionManager.Store = sqlite3store.New(db)
+	sessionManager.Store = sqlite3store.New(s.DB)
 	sessionManager.Lifetime = 24 * time.Hour
 	sessionManager.Cookie.Secure = false // set this to true for https
 
-	formDecoder := form.NewDecoder()
 	app := &application{
-		errorLog: errorLog,
-		infoLog:  infoLog,
-		// users:         &models.UserModel{DB: db},
-		templateCache: templateCache,
+		logger:         logger,
+		users:          &models.UserModel{DB: s.DB},
+		templateCache:  templateCache,
+		sessionManager: sessionManager,
+		formDecoder:    form.NewDecoder(),
+		store:          s,
 	}
 
 	// server := NewServer(app.templateCache, s)
 	server := &http.Server{
-		Addr:     cfg.Port,
-		ErrorLog: errorLog,
-		Handler:  app.routes(),
+		Addr:    cfg.Port,
+		Handler: app.routes(),
 	}
 
 	slog.Info("starting server", "port", cfg.Port)
