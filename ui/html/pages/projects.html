@@ -1,48 +1,39 @@
-{{block "content" .}}
-<main class="bg-background">
-    <section class="py-24 px-6 max-w-7xl mx-auto w-full scroll-mt-20">
-        <h1 class="text-4xl font-bold tracking-tight mb-2 dark:text-text text-center">Projects</h1>
-        <p class="text-xl text-muted mb-12 max-w-2xl mx-auto leading-relaxed text-center">A selection of things I've
-            built — from hardware to full-stack apps.</p>
+{{define "content"}}
+<main class="bg-bg">
+    <section class="min-h-screen flex flex-col items-start px-6 py-24 border-b-2 border-edge">
+        <p class="font-display uppercase tracking-tight text-accent mb-6 text-sm md:text-base">// 01 — Work</p>
+        <h1 class="font-display uppercase leading-[0.85] tracking-tighter text-black dark:text-white text-[clamp(3rem,14vw,10rem)] max-w-6xl">Projects</h1>
+        <p class="mt-8 max-w-2xl font-body text-lg md:text-xl text-muted leading-relaxed">A selection of things I've built — from hardware to full-stack apps.</p>
 
-        <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 project-grid">
-            <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
-                <a href="/projects/custom-keyboard" class="block group">
-                    <div
-                        class="h-48 bg-thumb-bg rounded-xl flex flex-col items-center justify-center text-muted mb-4 overflow-hidden">
+        <div class="grid gap-6 w-full max-w-6xl mt-16">
+            <article class="card hover:translate-y-[-2px] group">
+                <a href="/projects/custom-keyboard" class="block">
+                    <div class="h-56 overflow-hidden border-2 border-edge mb-6 bg-thumb-bg flex items-center justify-center">
                         <img src="https://thinkserver.pig-pinecone.ts.net/apps/files_sharing/publicpreview/59Tw8HGZgDEwHWd?file=/&fileId=22023&x=1920&y=1080&a=true&etag=4c69ff6cb7e3e8cb6e060427b1d5fdcb"
-                            width="150" height="150" alt="image of a keyboard" class="group-hover:scale-105 transition-transform duration-300">
+                            width="600" height="400" alt="image of a keyboard" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
                     </div>
-                    <h3 class="text-xl font-semibold mb-2 dark:text-text">Custom Keyboard</h3>
-                    <p class="text-muted leading-relaxed dark:text-text">Dasbob keyboard built by myself.</p>
-                    <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+                    <h3 class="font-display uppercase text-xl mb-2 text-black dark:text-white">Custom Keyboard</h3>
+                    <p class="font-body text-muted leading-relaxed">Dasbob keyboard built by myself.</p>
+                    <span class="inline-flex items-center mt-4 font-display uppercase text-accent group-hover:underline">View project →</span>
                 </a>
             </article>
-            <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
-                <a href="/projects/project-two" class="block group">
-                    <div
-                        class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
-                        <span class="text-6xl opacity-30 select-none">&#128193;</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Two</h3>
-                    <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
-                    <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+            <article class="card hover:translate-y-[-2px] group">
+                <a href="/projects/project-two" class="block">
+                    <div class="h-56 overflow-hidden border-2 border-edge mb-6 bg-thumb-bg flex items-center justify-center text-muted text-7xl select-none">📦</div>
+                    <h3 class="font-display uppercase text-xl mb-2 text-black dark:text-white">Project Two</h3>
+                    <p class="font-body text-muted leading-relaxed">Short description goes here.</p>
+                    <span class="inline-flex items-center mt-4 font-display uppercase text-accent group-hover:underline">View project →</span>
                 </a>
             </article>
-            <article class="project-card p-6 rounded-xl hover:shadow-lg transition-shadow duration-300 bg-gray-50 dark:bg-surface">
-                <a href="/projects/project-three" class="block group">
-                    <div
-                        class="h-48 bg-thumb-bg rounded-xl flex items-center justify-center text-muted mb-4 overflow-hidden">
-                        <span class="text-6xl opacity-30 select-none">&#127941;</span>
-                    </div>
-                    <h3 class="text-xl font-semibold mb-2 dark:text-text">Project Three</h3>
-                    <p class="text-muted leading-relaxed dark:text-text">Short description goes here.</p>
-                    <span class="inline-flex items-center justify-center mt-4 text-sm font-semibold text-accent group-hover:underline">View project →</span>
+            <article class="card hover:translate-y-[-2px] group">
+                <a href="/projects/project-three" class="block">
+                    <div class="h-56 overflow-hidden border-2 border-edge mb-6 bg-thumb-bg flex items-center justify-center text-muted text-7xl select-none">🏭</div>
+                    <h3 class="font-display uppercase text-xl mb-2 text-black dark:text-white">Project Three</h3>
+                    <p class="font-body text-muted leading-relaxed">Short description goes here.</p>
+                    <span class="inline-flex items-center mt-4 font-display uppercase text-accent group-hover:underline">View project →</span>
                 </a>
             </article>
         </div>
     </section>
 </main>
-
-    <style>.project-grid { display: grid; gap: 2rem; grid-template-columns: 1fr; } @media (min-width: 640px) { .project-grid { grid-template-columns: repeat(2, 1fr); } } @media (min-width: 1024px) { .project-grid { grid-template-columns: repeat(3, 1fr); } }</style>
 {{end}}

@@ -1,55 +1,38 @@
-{{block "content" .}}
-<main class="bg-background">
-    <article class="max-w-4xl mx-auto px-6 py-16 scroll-mt-20">
-        <a href="/projects" class="inline-flex items-center gap-2 text-accent hover:underline mb-8">&larr; Back to projects</a>
+{{define "content"}}
+<main class="bg-bg">
+    <article class="min-h-screen flex flex-col items-start px-6 py-24 border-b-2 border-edge max-w-5xl">
+        <a href="/projects" class="inline-flex items-center gap-3 font-display uppercase tracking-tight text-accent hover:underline mb-10 text-sm">&larr; Back to projects</a>
 
-        <header class="mb-12">
-            <p class="text-sm uppercase tracking-widest text-muted mb-3">Project</p>
-            <h1 class="text-4xl font-bold tracking-tight mb-4 dark:text-text">Custom Keyboard</h1>
-            <p class="text-xl text-muted leading-relaxed max-w-2xl">A Dasbob keyboard designed, built and wired by hand.</p>
+        <header class="mb-16">
+            <p class="font-display uppercase tracking-tight text-muted mb-4">// Project</p>
+            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Custom Keyboard</h1>
+            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">A Dasbob keyboard designed, built and wired by hand.</p>
         </header>
 
-        <div class="grid sm:grid-cols-2 gap-8 items-center mb-14 project-detail-grid">
-            <figure class="rounded-xl overflow-hidden bg-thumb-bg shadow-md">
+        <div class="grid sm:grid-cols-2 gap-10 items-center mb-16">
+            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center">
                 <img src="https://thinkserver.pig-pinecone.ts.net/apps/files_sharing/publicpreview/59Tw8HGZgDEwHWd?file=/&fileId=22023&x=1920&y=1080&a=true&etag=4c69ff6cb7e3e8cb6e060427b1d5fdcb"
                     width="600" height="400" alt="image of a keyboard" class="w-full h-auto">
             </figure>
-            <div class="space-y-4 text-lg leading-relaxed text-gray-900 dark:text-text">
-                <p class="text-muted">Building my own keyboard was one of those projects that starts as a hobby and ends up teaching you more about electronics, firmware and patience than you'd expect.</p>
-                <p class="text-muted">I picked the case, laid out the keycaps, soldered the PCB and got it typing before I knew how to spell "debounce."</p>
+            <div class="space-y-5 font-body text-lg leading-relaxed text-muted">
+                <p>Building my own keyboard was one of those projects that starts as a hobby and ends up teaching you more about electronics, firmware and patience than you'd expect.</p>
+                <p>I picked the case, laid out the keycaps, soldered the PCB and got it typing before I knew how to spell "debounce."</p>
             </div>
         </div>
 
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6 tracking-tight dark:text-text">What's involved</h2>
-            <ul class="grid sm:grid-cols-2 gap-4 project-detail-grid">
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">Case & layout</span>
-                    <span class="text-muted">Choosing a case and planning the key matrix.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">Keycaps</span>
-                    <span class="text-muted">Sourcing and arranging the switches and keys.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">PCB & soldering</span>
-                    <span class="text-muted">Wiring the rows and columns together.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">Firmware</span>
-                    <span class="text-muted">Making it actually type on first try.</span>
-                </li>
+        <section class="mb-12">
+            <h2 class="font-display uppercase tracking-tight text-black dark:text-white text-3xl mb-8">What's involved</h2>
+            <ul class="grid sm:grid-cols-2 gap-6">
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Case &amp; layout</span><span class="font-body text-muted">Choosing a case and planning the key matrix.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Keycaps</span><span class="font-body text-muted">Sourcing and arranging the switches and keys.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">PCB &amp; soldering</span><span class="font-body text-muted">Wiring the rows and columns together.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Firmware</span><span class="font-body text-muted">Making it actually type on first try.</span></li>
             </ul>
         </section>
 
-        <div class="flex justify-end">
-            <a href="/"
-                class="inline-flex items-center justify-center border-accent text-accent py-3 px-7 rounded-md font-semibold hover:bg-accent hover:text-white transition-all duration-200 shadow-sm dark:border-[#5AA382] dark:text-[#5AA382] dark:hover:bg-[#5AA382] dark:hover:text-white">
-                Back home
-            </a>
+        <div class="mt-auto">
+            <a href="/" class="btn btn--accent hover:translate-x-[-4px]">Back home</a>
         </div>
     </article>
 </main>
-
-    <style>.project-detail-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; } @media (min-width: 640px) { .project-detail-grid { grid-template-columns: 1fr 1fr; } }</style>
 {{end}}
