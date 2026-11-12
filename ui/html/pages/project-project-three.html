@@ -1,54 +1,35 @@
-{{block "content" .}}
-<main class="bg-background">
-    <article class="max-w-4xl mx-auto px-6 py-16 scroll-mt-20">
-        <a href="/projects" class="inline-flex items-center gap-2 text-accent hover:underline mb-8">&larr; Back to projects</a>
+{{define "content"}}
+<main class="bg-bg">
+    <article class="min-h-screen flex flex-col items-start px-6 py-24 border-b-2 border-edge max-w-5xl">
+        <a href="/projects" class="inline-flex items-center gap-3 font-display uppercase tracking-tight text-accent hover:underline mb-10 text-sm">&larr; Back to projects</a>
 
-        <header class="mb-12">
-            <p class="text-sm uppercase tracking-widest text-muted mb-3">Project</p>
-            <h1 class="text-4xl font-bold tracking-tight mb-4 dark:text-text">Project Three</h1>
-            <p class="text-xl text-muted leading-relaxed max-w-2xl">Short description goes here.</p>
+        <header class="mb-16">
+            <p class="font-display uppercase tracking-tight text-muted mb-4">// Project</p>
+            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Project Three</h1>
+            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">Short description goes here.</p>
         </header>
 
-        <div class="grid sm:grid-cols-2 gap-8 items-center mb-14 project-detail-grid">
-            <figure class="rounded-xl overflow-hidden bg-thumb-bg shadow-md flex items-center justify-center">
-                <span class="text-7xl opacity-20 select-none">&#127941;</span>
-            </figure>
-            <div class="space-y-4 text-lg leading-relaxed text-gray-900 dark:text-text">
-                <p class="text-muted">Replace this with a sentence or two about what the project is and why it matters to you.</p>
-                <p class="text-muted">This layout is ready to go — swap in your own photo, description and highlights below.</p>
+        <div class="grid sm:grid-cols-2 gap-10 items-center mb-16">
+            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center text-8xl select-none opacity-40">🏭</figure>
+            <div class="space-y-5 font-body text-lg leading-relaxed text-muted">
+                <p>Replace this with a sentence or two about what the project is and why it matters to you.</p>
+                <p>This layout is ready to go — swap in your own photo, description and highlights below.</p>
             </div>
         </div>
 
-        <section class="mb-10">
-            <h2 class="text-2xl font-bold mb-6 tracking-tight dark:text-text">Highlights</h2>
-            <ul class="grid sm:grid-cols-2 gap-4 project-detail-grid">
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">What you built</span>
-                    <span class="text-muted">A short summary of the project.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">The challenge</span>
-                    <span class="text-muted">What made it interesting or hard.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">Tools used</span>
-                    <span class="text-muted">Languages, frameworks or hardware.</span>
-                </li>
-                <li class="p-5 rounded-lg border border-surface bg-gray-50 dark:bg-surface">
-                    <span class="block text-accent font-semibold mb-1">Result</span>
-                    <span class="text-muted">What you shipped or learned.</span>
-                </li>
+        <section class="mb-12">
+            <h2 class="font-display uppercase tracking-tight text-black dark:text-white text-3xl mb-8">Highlights</h2>
+            <ul class="grid sm:grid-cols-2 gap-6">
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">What you built</span><span class="font-body text-muted">A short summary of the project.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">The challenge</span><span class="font-body text-muted">What made it interesting or hard.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Tools used</span><span class="font-body text-muted">Languages, frameworks or hardware.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Result</span><span class="font-body text-muted">What you shipped or learned.</span></li>
             </ul>
         </section>
 
-        <div class="flex justify-end">
-            <a href="/"
-                class="inline-flex items-center justify-center border-accent text-accent py-3 px-7 rounded-md font-semibold hover:bg-accent hover:text-white transition-all duration-200 shadow-sm dark:border-[#5AA382] dark:text-[#5AA382] dark:hover:bg-[#5AA382] dark:hover:text-white">
-                Back home
-            </a>
+        <div class="mt-auto">
+            <a href="/" class="btn btn--accent hover:translate-x-[-4px]">Back home</a>
         </div>
     </article>
 </main>
-
-    <style>.project-detail-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; } @media (min-width: 640px) { .project-detail-grid { grid-template-columns: 1fr 1fr; } }</style>
 {{end}}

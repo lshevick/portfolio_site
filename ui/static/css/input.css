@@ -1,80 +1,54 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
-/* Design tokens with dark mode variants using Tailwind's class-based system */
-@theme {
-  /* Dark theme (for .site.dark) */
-  --color-bg: #0f1115;
-  --color-surface: #1a1d24;
-  --color-text: #e6e8ec;
-  --color-muted: #9aa3b2;
-  --color-accent: #5AA382;
-  --color-thumb-bg: #2a2e37;
 
-  /* Light theme (for default/light mode) */
-  --color-bg-light: #f7f8fb;
-  --color-surface-light: #eef1f6;
-  --color-text-light: #1a1d24;
-  --color-muted-light: #5b6472;
-  --color-accent-light: #3f7d5a;
-  --color-thumb-bg-light: #e3e7ef;
+/* =====================================================================
+   BRUTALIST DESIGN SYSTEM — Levi Shevick portfolio
+   Stark paper-white / ink-black contrast + one signature accent.
+   Heavy grotesque display type, mono labels, thick edges, hard shadows.
+   Dark mode is class-based: add "dark" to <html> (see base.html).
+   ===================================================================== */
+
+/* ---------- Design tokens ---------- */
+@theme {
+  --font-display: "Archivo Black", Impact, "Arial Black", Gadget, system-ui, sans-serif;
+  --font-body: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Light (default) */
+  --color-bg: #faf8f5;
+  --color-surface: #e9e6df;
+  --color-text: #0a0a0a;
+  --color-edge: #0a0a0a;
+  --color-muted: #5c584f;
+  --color-accent: #5AA382;
+  --color-thumb-bg: #efeae1;
 
   /* Container widths */
   --container-2xl: 42rem;
   --container-3xl: 48rem;
-  --container-5xl: 64rem;
-  --container-7xl: 80rem;
 }
 
-/* Base theme - light mode by default */
+/* ---------- Theme root (class-based dark mode) ---------- */
 .site {
   min-height: 100vh;
-  --color-bg: #f7f8fb;
-  --color-surface: #eef1f6;
-  --color-text: #1a1d24;
-  --color-muted: #5b6472;
-  --color-accent: #3f7d5a;
-  --color-thumb-bg: #e3e7ef;
   background-color: var(--color-bg);
   color: var(--color-text);
-  transition: background-color .3s ease, color .3s ease;
+  transition: background-color .25s ease, color .25s ease;
 }
 
-/* Dark mode variant - apply when .dark class is present */
+/* Dark mode override — applied when .dark is on <html> */
 .site.dark {
-  --color-bg: #0f1115;
-  --color-surface: #1a1d24;
-  --color-text: #e6e8ec;
-  --color-muted: #9aa3b2;
-  --color-accent: #5AA382;
-  --color-thumb-bg: #2a2e37;
-
+  --color-bg: #0a0a0a;
+  --color-surface: #171717;
+  --color-text: #f5f3ee;
+  --color-edge: #f5f3ee;
+  --color-muted: #9a968c;
+  --color-accent: #6fd09b;
+  --color-thumb-bg: #232323;
   background-color: var(--color-bg);
   color: var(--color-text);
 }
 
-/* Light mode override (for explicit light toggle) */
-.site[data-theme="light"] {
-  background-color: var(--color-bg-light);
-  color: var(--color-text-light);
-}
-
-.dark .site[data-theme="light"] {
-  background-color: #f7f8fb;
-  color: #1a1d24;
-}
-
-/* Theme toggle icons */
-.site .icon-sun { display: none; }
-
-/* Checkbox approach - hide moon, show sun when checked */
-#theme-toggle:checked ~ .site .icon-moon { display: none; }
-#theme-toggle:checked ~ .site .icon-sun { display: block; }
-
-/* Class-based approach - override icon visibility for dark class */
-.site.dark .icon-moon { display: none; }
-.site.dark .icon-sun { display: block; }
-
-/* Map standard Tailwind utility classes to theme colors */
+/* ---------- Utility mappings (kept for page compatibility) ---------- */
 .text-text { color: var(--color-text); }
 .site.dark .text-text { color: var(--color-text); }
 
@@ -92,3 +66,127 @@
 
 .border-surface { border-color: var(--color-surface); }
 .site.dark .border-surface { border-color: var(--color-surface); }
+
+/* ---------- Brutalist base layer ---------- */
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply font-body bg-bg text-text antialiased; }
+}
+
+/* ---------- Right-aligned vertical nav rail ---------- */
+.rail {
+  position: fixed;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  top: 0;
+  right: 0;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: clamp(1rem, 4vw, 2.5rem);
+  z-index: 60;
+}
+
+.rail-mark {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+.rail-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.rail-link {
+  display: inline-block;
+  padding: 0.35rem 0;
+  color: inherit;
+  text-decoration: none;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, transform .15s ease, border-color .15s ease;
+}
+
+.rail-link:hover { transform: translateX(-4px); }
+
+/* Active / in-view highlight */
+.rail-link.is-active {
+  color: var(--color-accent);
+  font-weight: 900;
+  border-bottom-width: 4px;
+}
+
+/* Theme toggle — big mono glyph button, bottom of the rail */
+.rail-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.75rem;
+  border: 2px solid var(--color-edge);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.rail-toggle:hover { transform: translate(-2px, -2px); }
+.site.dark .rail-toggle:hover { box-shadow: 4px 4px 0 #f5f3ee; }
+.site:not(.dark) .rail-toggle:hover { box-shadow: 4px 4px 0 #0a0a0a; }
+
+/* ---------- Buttons (neo-brutalist) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+  border: 2px solid var(--color-edge);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.btn:hover { transform: translate(-2px, -2px); }
+.site.dark .btn:hover { box-shadow: 4px 4px 0 var(--color-accent); color: var(--color-accent); }
+.site:not(.dark) .btn:hover { box-shadow: 4px 4px 0 #0a0a0a; }
+
+.btn--accent { background-color: var(--color-accent); color: #0a0a0a; border-color: #0a0a0a; }
+.site.dark .btn--accent { background-color: var(--color-accent); color: #0a0a0a; }
+
+/* ---------- Project / info cards ---------- */
+.card {
+  border: 2px solid var(--color-edge);
+  background-color: var(--color-bg);
+  padding: 1.5rem;
+}
+
+.site.dark .card:hover { box-shadow: 6px 6px 0 #f5f3ee; }
+.site:not(.dark) .card:hover { box-shadow: 6px 6px 0 #0a0a0a; }
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 4px solid var(--color-edge);
+  background-color: var(--color-bg);
+}
+
+.site.dark .footer { background-color: #0a0a0a; }

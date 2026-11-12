@@ -19,20 +19,23 @@
     </script>
 </head>
 
-<body class="font-mono text-gray-900 bg-background">
+<body class="m-0 bg-bg text-text">
     {{template "nav.html" .}}
+
     {{with .Flash}}
-    <div
-        class="flash text-white dark:text-black text-center px-1 py-2 bg-gray-700 dark:bg-gray-200 border border-gray-800 dark:border-gray-300 rounded-sm mx-auto w-1/4">
-        {{.}}
-    </div>
+    <div class="flash border-y-2 border-edge bg-surface px-4 py-2 text-center text-sm font-body uppercase tracking-widest text-muted max-w-3xl mx-auto">{{.}}</div>
     {{end}}
-    <div class="px-4 sm:px-6 lg:px-8 h-full">
+
+    <main class="min-h-screen flex flex-col bg-bg">
         {{block "content" .}}
         {{end}}
-    </div>
-    <footer class="py-12 px-6 bg-gray-900 dark:bg-background border-t border-surface">
-        <p class="text-muted text-center leading-relaxed">&copy; 2026 Levi Shevick. Built with Go.</p>
+    </main>
+
+    <footer class="footer py-12 px-6 border-t-4 border-edge">
+        <div class="max-w-3xl mx-auto text-center space-y-3">
+            <p class="font-display uppercase tracking-tight text-lg">&copy; 2026 Levi Shevick</p>
+            <p class="text-muted font-body text-sm leading-relaxed">Software generalist. Automobile mechanic. Built with Go.</p>
+        </div>
     </footer>
 
     <!-- Theme toggle logic (persisted to localStorage) -->

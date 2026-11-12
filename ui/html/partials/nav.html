@@ -1,50 +1,70 @@
-<header
-    class="border-b border-surface bg-background/95 backdrop-blur sticky top-0 z-50 transition-colors duration-300">
-    <nav class="flex items-center justify-between px-4 py-4 max-w-7xl mx-auto">
-        <a href="/" class="text-xl font-bold tracking-wide text-black dark:text-white">LEVI SHEVICK</a>
-        <div class="flex items-center justify-end gap-8 flex-1">
-            <ul class="flex gap-6 items-center mr-8 text-gray-900 dark:text-gray-100">
-                <li><a href="/" class="nav-link hover:text-accent transition-colors dark:hover:text-accent">Home</a></li>
-                <li><a href="#about" class="nav-link hover:text-accent transition-colors dark:hover:text-accent">About</a></li>
-                <li><a href="#skills" class="nav-link hover:text-accent transition-colors dark:hover:text-accent">Skills</a></li>
-                <li><a href="/projects" class="nav-link hover:text-accent transition-colors dark:hover:text-accent">Projects</a></li>
-                <li><a href="#contact" class="nav-link hover:text-accent transition-colors dark:hover:text-accent">Contact</a></li>
-            </ul>
-            <label for="theme-toggle" onclick="toggleTheme(); event.preventDefault()" aria-label="Toggle theme"
-                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-gray-200 dark:bg-surface cursor-pointer transition-transform duration-200 hover:rotate-18">
-                <!-- Moon: shown in light mode -->
-                <svg class="icon icon-moon " viewBox="0 0 24 24" width="20" height="20" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true">
-                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-                <!-- Sun: shown in dark mode -->
-                <svg class="icon icon-sun hidden dark:block" viewBox="0 0 24 24" width="20" height="20"
-                    fill="none" stroke="white" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                    <circle cx="12" cy="12" r="5" />
-                    <line x1="12" y1="1" x2="12" y2="3" />
-                    <line x1="12" y1="21" x2="12" y2="23" />
-                    <line x1="1" y1="12" x2="3" y2="12" />
-                    <line x1="21" y1="12" x2="23" y2="12" />
-                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
-                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
-                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
-                    <line x1="18.36" y1="18.36" x2="19.78" y2="20" />
-                </svg>
-            </label>
-        </div>
-    </nav>
-</header>
+<nav class="rail" aria-label="Primary">
+    <div>
+        <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
+    </div>
 
-<!-- Active-route highlight (vanilla JS, no build step) -->
-<style>.nav a.is-active { color: var(--color-accent); font-weight: 600; }</style>
+    <ul class="rail-links">
+        <li><a href="/" class="rail-link is-home">Home</a></li>
+        <li><a href="#about" class="rail-link is-about">About</a></li>
+        <li><a href="#skills" class="rail-link is-skills">Skills</a></li>
+        <li><a href="/projects" class="rail-link is-projects">Projects</a></li>
+        <li><a href="#contact" class="rail-link is-contact">Contact</a></li>
+    </ul>
+
+    <div>
+        <button type="button" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme"
+            class="rail-toggle" title="Toggle dark mode">☾</button>
+    </div>
+</nav>
+
 <script>
     (function () {
-        var links = Array.prototype.slice.call(document.querySelectorAll('header nav a'));
-        links.forEach(function (a) {
-            if (location.pathname === a.getAttribute('href')) {
-                a.classList.add('is-active');
+        var links = Array.prototype.slice.call(document.querySelectorAll('.rail-link'));
+        var toggle = document.getElementById('theme-toggle');
+
+        // Reflect current theme on the toggle glyph.
+        if (toggle) {
+            if (document.documentElement.classList.contains('dark')) {
+                toggle.textContent = '☀';
+            } else {
+                toggle.textContent = '☾';
             }
-        });
+        }
+
+        function setActive(name) {
+            links.forEach(function (a) {
+                a.classList.toggle('is-active', a.getAttribute('href') === name);
+            });
+        }
+
+        // Full-page routes: highlight by exact pathname.
+        var path = location.pathname;
+        if (path === '/') setActive('Home');
+        else if (path.startsWith('/projects')) setActive('Projects');
+        else setActive('Home');
+
+        // Scroll-spy for section anchors (#about, #skills, ...). Only fires when
+        // the target actually exists in this document.
+        var targets = Array.prototype.slice.call(document.querySelectorAll('[id]'));
+        if (targets.length) {
+            var io = new IntersectionObserver(function (entries) {
+                entries.forEach(function (e) {
+                    if (e.isIntersecting) setActive('#' + e.target.id);
+                });
+            }, { rootMargin: '0px 0px -50% 0px', threshold: 0 });
+            targets.forEach(function (t) { io.observe(t); });
+        }
+
+        window.addEventListener('scroll', function () {
+            // Last-section-in-viewport wins; otherwise fall back to current path.
+            var visible = null;
+            links.forEach(function (a) {
+                if (a.getAttribute('href').startsWith('#') && document.getElementById(a.getAttribute('href').slice(1))) {
+                    var el = document.getElementById(a.getAttribute('href').slice(1));
+                    if (el && el.getBoundingClientRect().top <= window.innerHeight * 0.6) visible = a.getAttribute('href');
+                }
+            });
+            setActive(visible || location.pathname === '/' ? 'Home' : null);
+        }, { passive: true });
     })();
 </script>
