@@ -7,6 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/static/css/output.css" />
     <title>Levi Shevick | Software Generalist</title>
+    <!-- Restore persisted theme before paint to avoid a flash on reload -->
+    <script>
+        (function () {
+            try {
+                if (localStorage.getItem('theme') === 'dark') {
+                    document.documentElement.classList.add('dark');
+                }
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body class="font-mono text-gray-900 bg-background">
@@ -25,10 +35,16 @@
         <p class="text-muted text-center leading-relaxed">&copy; 2026 Levi Shevick. Built with Go.</p>
     </footer>
 
-    <!-- Theme toggle logic -->
+    <!-- Theme toggle logic (persisted to localStorage) -->
     <script defer>
+        var THEME_KEY = 'theme';
+        function applyTheme(dark) {
+            document.documentElement.classList.toggle('dark', dark);
+        }
         function toggleTheme() {
-            document.documentElement.classList.toggle('dark');
+            var isDark = document.documentElement.classList.contains('dark');
+            applyTheme(!isDark);
+            try { localStorage.setItem(THEME_KEY, !isDark ? 'dark' : 'light'); } catch (e) {}
         }
     </script>
 </body>
