@@ -156,19 +156,6 @@
 .site.dark .rail-toggle .rail-icon--moon { display: none; }
 .site.dark .rail-toggle .rail-icon--sun  { display: block; }
 
-/* ---------- Sticky scroll sections — sliding-sheets parallax ---------- */
-/* Each full-screen section pins in place while scrolling, so the next one rises from below.
-   A subtle translateY (driven by JS per frame) adds layered depth: sheets slide past each
-   other at slightly different rates instead of swapping rigidly. */
-.parallax-section {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 5;
-  will-change: transform;
-  background-color: var(--color-bg); /* opaque so sheets read as solid layers when they overlap */
-}
-
 /* ---------- Buttons (neo-brutalist) ---------- */
 .btn {
   display: inline-flex;
