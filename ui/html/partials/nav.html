@@ -65,4 +65,42 @@
             }, {passive: true});
         }
     })();
+
+    // Sliding-sheets scroll effect. Each full-screen section already pins in place via
+    // `position: sticky; top: 0` (CSS), so the next one naturally rises from below as you
+    // scroll past it. This adds layered depth: a subtle translateY driven per frame makes
+    // sheets slide at slightly different rates — nearer ones rise faster, farther ones sink —
+    // instead of swapping rigidly. No-op on pages without .parallax-section elements.
+    (function () {
+        var sections = Array.prototype.slice.call(document.querySelectorAll('.parallax-section'));
+        if (!sections.length) return;
+
+        var factor = 0.35;          // drift strength relative to the viewport center
+        var maxDrift = window.innerHeight * 0.18; // clamp so sheets never overshoot/clip
+
+        function render() {
+            var mid = window.innerHeight / 2;
+            for (var i = 0; i < sections.length; i++) {
+                var top = sections[i].getBoundingClientRect().top;
+                var drift = (mid - top) * factor; // below center -> negative -> rises up
+                if (drift > maxDrift) drift = maxDrift;
+                if (drift < -maxDrift) drift = -maxDrift;
+                sections[i].style.transform = 'translateY(' + drift + 'px)';
+            }
+        }
+
+        // Drive updates off requestAnimationFrame so transforms batch to the display's
+        // refresh rate instead of firing on every raw scroll event — that keeps the sheets
+        // gliding smoothly rather than stuttering. Only re-render when something actually moved.
+        var ticking = false;
+        function onScroll() {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(function () { render(); ticking = false; });
+        }
+
+        window.addEventListener('scroll', onScroll, {passive: true});
+        window.addEventListener('resize', function () { render(); });
+        render();
+    })();
 </script>
