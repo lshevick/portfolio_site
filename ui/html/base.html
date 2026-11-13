@@ -14,7 +14,7 @@
                 if (localStorage.getItem('theme') === 'dark') {
                     document.documentElement.classList.add('dark');
                 }
-            } catch (e) {}
+            } catch (e) { }
         })();
     </script>
 </head>
@@ -23,7 +23,9 @@
     {{template "nav.html" .}}
 
     {{with .Flash}}
-    <div class="flash border-y-2 border-edge bg-surface px-4 py-2 text-center text-sm font-body uppercase tracking-widest text-muted max-w-3xl mx-auto">{{.}}</div>
+    <div
+        class="flash border-y-2 border-edge bg-surface px-4 py-2 text-center text-sm font-body uppercase tracking-widest text-muted max-w-3xl mx-auto">
+        {{.}}</div>
     {{end}}
 
     <main class="min-h-screen flex flex-col bg-bg">
@@ -34,20 +36,20 @@
     <footer class="footer py-12 px-6 border-t-4 border-edge">
         <div class="max-w-3xl mx-auto text-center space-y-3">
             <p class="font-display uppercase tracking-tight text-lg">&copy; 2026 Levi Shevick</p>
-            <p class="text-muted font-body text-sm leading-relaxed">Software generalist. Automobile mechanic. Built with Go.</p>
+            <p class="text-muted font-body text-sm leading-relaxed">Built with
+                Go.</p>
         </div>
     </footer>
 
-    <!-- Theme toggle logic (persisted to localStorage) -->
     <script defer>
-        var THEME_KEY = 'theme';
+        const THEME_KEY = 'theme';
         function applyTheme(dark) {
             document.documentElement.classList.toggle('dark', dark);
         }
         function toggleTheme() {
             var isDark = document.documentElement.classList.contains('dark');
             applyTheme(!isDark);
-            try { localStorage.setItem(THEME_KEY, !isDark ? 'dark' : 'light'); } catch (e) {}
+            try {localStorage.setItem(THEME_KEY, !isDark ? 'dark' : 'light');} catch (e) { }
         }
     </script>
 </body>
