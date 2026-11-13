@@ -7,7 +7,8 @@ Apply whenever you're asked to change code here (not docs-only or config tweaks)
 
 1. Checkout `master`, then `git pull origin master`.
 2. Create a new branch from master: `sonny-<short-name>` (hyphens, lowercase).
-3. Make the change; keep it scoped — no drive-by refactors or reformatting.
-4. Run the pre-commit gate before committing (`requesting-code-review` skill): static scan + baseline tests/lint + independent reviewer subagent. Only NEW failures block the commit.
-5. Commit with a `[verified]` prefix (marks that the independent reviewer approved it), then `git push`.
-6. Open a merge request with `gh`, targeting master. Don't leave work unbranched or unpushed.
+3. Checkout to the newly created branch.
+4. Make the change; keep it scoped — no drive-by refactors or reformatting.
+5. Run the pre-commit gate before committing (`requesting-code-review` skill): static scan + baseline tests/lint + independent reviewer subagent. Only NEW failures block the commit.
+6. Commit with a `[verified]` prefix (marks that the independent reviewer approved it), then `git push`.
+7. Open a merge request with `gh`, targeting master. Don't leave work unbranched or unpushed.
