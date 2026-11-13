@@ -69,7 +69,7 @@
 
 /* ---------- Brutalist base layer ---------- */
 @layer base {
-  html { scroll-behavior: smooth; }
+  html, body { scroll-behavior: smooth; }
   body { @apply font-body bg-bg text-text antialiased; }
 }
 

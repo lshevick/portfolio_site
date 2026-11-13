@@ -278,6 +278,15 @@
   .h-full {
     height: 100%;
   }
+  .min-h-\[50vh\] {
+    min-height: 50vh;
+  }
+  .min-h-\[80vh\] {
+    min-height: 80vh;
+  }
+  .min-h-\[90vh\] {
+    min-height: 90vh;
+  }
   .min-h-screen {
     min-height: 100vh;
   }
@@ -597,7 +606,7 @@
   border-color: var(--color-surface);
 }
 @layer base {
-  html {
+  html, body {
     scroll-behavior: smooth;
   }
   body {
