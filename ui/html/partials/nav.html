@@ -144,17 +144,20 @@
 
 <script>
 (function () {
+    var nav = document.querySelector('.mobile-nav');
     var toggle = document.getElementById('nav-toggle');
     var menu = document.getElementById('mobile-menu');
-    if (!toggle || !menu) return;
+    if (!nav || !toggle || !menu) return;
 
     function openMenu() {
-        toggle.classList.add('is-open');
+        nav.classList.add('is-open');   // pin to top + dim content behind (overlay)
+        toggle.classList.add('is-open'); // bars -> X
         toggle.setAttribute('aria-expanded', 'true');
-        menu.classList.add('is-open');
-        document.body.style.overflow = 'hidden';   // lock scroll while the sheet is up
+        menu.classList.add('is-open');   // animate the sheet down
+        document.body.style.overflow = 'hidden';  // lock scroll while the overlay is up
     }
     function closeMenu() {
+        nav.classList.remove('is-open');
         toggle.classList.remove('is-open');
         toggle.setAttribute('aria-expanded', 'false');
         menu.classList.remove('is-open');
