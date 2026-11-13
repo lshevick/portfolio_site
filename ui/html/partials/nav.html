@@ -96,11 +96,11 @@
         function onScroll() {
             if (ticking) return;
             ticking = true;
-            requestAnimationFrame(function () { render(); ticking = false; });
+            requestAnimationFrame(function () {render(); ticking = false;});
         }
 
         window.addEventListener('scroll', onScroll, {passive: true});
-        window.addEventListener('resize', function () { render(); });
+        window.addEventListener('resize', function () {render();});
         render();
     })();
 </script>
