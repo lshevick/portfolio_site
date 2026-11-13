@@ -672,6 +672,15 @@
 .site:not(.dark) .rail-toggle:hover {
   box-shadow: 4px 4px 0 #0a0a0a;
 }
+
+/* Theme toggle icon — swap the inline SVGs by theme class. Icons inherit the button's
+   currentColor (text color), so moon strokes dark in light mode and sun strokes white
+   in dark mode automatically via --color-text on <html>. */
+.site:not(.dark) .rail-toggle .rail-icon--moon { display: block; }
+.site:not(.dark) .rail-toggle .rail-icon--sun  { display: none; }
+.site.dark .rail-toggle .rail-icon--moon { display: none; }
+.site.dark .rail-toggle .rail-icon--sun  { display: block; }
+
 .btn {
   display: inline-flex;
   align-items: center;
