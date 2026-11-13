@@ -203,9 +203,6 @@
   .collapse {
     visibility: collapse;
   }
-  .relative {
-    position: relative;
-  }
   .static {
     position: static;
   }
@@ -313,12 +310,6 @@
   }
   .max-w-xl {
     max-width: var(--container-xl);
-  }
-  .transform {
-    transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
-  }
-  .resize {
-    resize: both;
   }
   .flex-col {
     flex-direction: column;
@@ -515,8 +506,16 @@
     :is(:where(.group):hover .group-hover\:underline) {
       text-decoration-line: underline;
     }
+    .hover\:translate-x-1:hover {
+      --tw-translate-x: var(--spacing);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
     .hover\:translate-x-\[-4px\]:hover {
       --tw-translate-x: -4px;
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    .hover\:translate-y-0\.5:hover {
+      --tw-translate-y: calc(var(--spacing) * 0.5);
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
     .hover\:translate-y-\[-2px\]:hover {
@@ -702,14 +701,6 @@
 .site.dark .rail-toggle .rail-icon--sun {
   display: block;
 }
-.parallax-section {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 5;
-  will-change: transform;
-  background-color: var(--color-bg);
-}
 .btn {
   display: inline-flex;
   align-items: center;
@@ -731,7 +722,6 @@
 }
 .site.dark .btn:hover {
   box-shadow: 4px 4px 0 var(--color-accent);
-  color: var(--color-accent);
 }
 .site:not(.dark) .btn:hover {
   box-shadow: 4px 4px 0 #0a0a0a;
@@ -749,12 +739,15 @@
   border: 2px solid var(--color-edge);
   background-color: var(--color-bg);
   padding: 1.5rem;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 .site.dark .card:hover {
   box-shadow: 6px 6px 0 #f5f3ee;
+  transform: translate(-2px, -2px);
 }
 .site:not(.dark) .card:hover {
   box-shadow: 6px 6px 0 #0a0a0a;
+  transform: translate(-2px, -2px);
 }
 .footer {
   border-top: 4px solid var(--color-edge);
@@ -762,26 +755,6 @@
 }
 .site.dark .footer {
   background-color: #0a0a0a;
-}
-@property --tw-rotate-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-rotate-y {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-rotate-z {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-skew-x {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-skew-y {
-  syntax: "*";
-  inherits: false;
 }
 @property --tw-space-y-reverse {
   syntax: "*";
@@ -891,11 +864,6 @@
 @layer properties {
   @supports ((-webkit-hyphens: none) and (not (margin-trim: block))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
     *, ::before, ::after, ::backdrop {
-      --tw-rotate-x: initial;
-      --tw-rotate-y: initial;
-      --tw-rotate-z: initial;
-      --tw-skew-x: initial;
-      --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
       --tw-border-style: solid;
       --tw-leading: initial;

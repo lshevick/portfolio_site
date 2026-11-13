@@ -156,19 +156,6 @@
 .site.dark .rail-toggle .rail-icon--moon { display: none; }
 .site.dark .rail-toggle .rail-icon--sun  { display: block; }
 
-/* ---------- Sticky scroll sections — sliding-sheets parallax ---------- */
-/* Each full-screen section pins in place while scrolling, so the next one rises from below.
-   A subtle translateY (driven by JS per frame) adds layered depth: sheets slide past each
-   other at slightly different rates instead of swapping rigidly. */
-.parallax-section {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 5;
-  will-change: transform;
-  background-color: var(--color-bg); /* opaque so sheets read as solid layers when they overlap */
-}
-
 /* ---------- Buttons (neo-brutalist) ---------- */
 .btn {
   display: inline-flex;
@@ -188,7 +175,7 @@
 }
 
 .btn:hover { transform: translate(-2px, -2px); }
-.site.dark .btn:hover { box-shadow: 4px 4px 0 var(--color-accent); color: var(--color-accent); }
+.site.dark .btn:hover { box-shadow: 4px 4px 0 var(--color-accent);}
 .site:not(.dark) .btn:hover { box-shadow: 4px 4px 0 #0a0a0a; }
 
 .btn--accent { background-color: var(--color-accent); color: #0a0a0a; border-color: #0a0a0a; }
@@ -199,10 +186,11 @@
   border: 2px solid var(--color-edge);
   background-color: var(--color-bg);
   padding: 1.5rem;
+  transition: transform .15s ease, box-shadow .15s ease;
 }
 
-.site.dark .card:hover { box-shadow: 6px 6px 0 #f5f3ee; }
-.site:not(.dark) .card:hover { box-shadow: 6px 6px 0 #0a0a0a; }
+.site.dark .card:hover { box-shadow: 6px 6px 0 #f5f3ee; transform: translate(-2px, -2px);}
+.site:not(.dark) .card:hover { box-shadow: 6px 6px 0 #0a0a0a; transform: translate(-2px, -2px);}
 
 /* ---------- Footer ---------- */
 .footer {
