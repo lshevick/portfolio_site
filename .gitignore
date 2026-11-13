@@ -11,5 +11,4 @@ package.json
 postcss.config.js
 tailwind.config.js
 tailwindcss
-ui/static/css/output.css
 .air.toml
