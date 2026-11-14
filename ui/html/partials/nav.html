@@ -1,9 +1,26 @@
+<!-- <nav class="fixed top-0 sm:right-0 h-dvh flex sm:flex-col sm:items-end justify-between p-4 z-50" aria-label="Primary"> -->
 <nav class="rail" aria-label="Primary">
+    <!-- Mobile pull-out menu toggle (small viewports only; styling in input.css). -->
+    <button type="button" id="mobile-toggle"
+        class="mobile-toggle rail-toggle absolute inset-block-start-0 inset-inline-end-0 z-10" aria-label="Open menu"
+        aria-expanded="false">
+        <!-- Bars: shown when the menu is closed -->
+        <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+        <!-- Cross: shown when the menu is open -->
+        <svg class="rail-icon rail-icon--close hidden" viewBox="0 0 24 24" width="22" height="22" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+    </button>
     <div>
         <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
     </div>
 
-    <ul class="rail-links">
+    <ul
+        class="flex sm:flex-col gap-[0.35rem] list-none m-0 p-0 font-[var(--font-display)] uppercase tracking-[-0.02em] overflow-scroll">
         <li><a href="/" class="rail-link is-home">Home</a></li>
         <li><a href="/#about" class="rail-link is-about">About</a></li>
         <li><a href="/#skills" class="rail-link is-skills">Skills</a></li>
@@ -131,7 +148,7 @@
         });
 
         document.querySelectorAll('.rail-link').forEach(function (link) {
-            link.addEventListener('click', function () { setOpen(false); });
+            link.addEventListener('click', function () {setOpen(false);});
         });
 
         window.addEventListener('keydown', function (e) {
