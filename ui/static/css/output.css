@@ -7,7 +7,6 @@
     sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
     monospace;
-    --color-gray-50: oklch(98.5% 0.002 247.839);
     --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
@@ -37,6 +36,7 @@
     --tracking-tight: -0.025em;
     --tracking-widest: 0.1em;
     --leading-relaxed: 1.625;
+    --blur-sm: 8px;
     --default-transition-duration: 150ms;
     --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     --default-font-family: var(--font-sans);
@@ -219,6 +219,9 @@
   .top-0 {
     top: 0px;
   }
+  .right-0 {
+    right: 0px;
+  }
   .right-\[10vw\] {
     right: 10vw;
   }
@@ -228,7 +231,7 @@
   .z-50 {
     z-index: 50;
   }
-  .z-\[70\] {
+  .z-70 {
     z-index: 70;
   }
   .m-0 {
@@ -312,8 +315,8 @@
   .min-h-screen {
     min-height: 100vh;
   }
-  .w-3\/4 {
-    width: calc(3 / 4 * 100%);
+  .w-1\/2 {
+    width: calc(1 / 2 * 100%);
   }
   .w-full {
     width: 100%;
@@ -387,6 +390,9 @@
   }
   .overflow-scroll {
     overflow: scroll;
+  }
+  .rounded-\[0\.2rem\] {
+    border-radius: 0.2rem;
   }
   .border-2 {
     border-style: var(--tw-border-style);
@@ -535,6 +541,11 @@
   .filter {
     filter: var(--tw-blur, ) var(--tw-brightness, ) var(--tw-contrast, ) var(--tw-grayscale, ) var(--tw-hue-rotate, ) var(--tw-invert, ) var(--tw-saturate, ) var(--tw-sepia, ) var(--tw-drop-shadow, );
   }
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
+  }
   .transition-colors {
     transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -590,8 +601,8 @@
     .sm\:right-0 {
       right: 0px;
     }
-    .sm\:w-1\/2 {
-      width: calc(1 / 2 * 100%);
+    .sm\:w-1\/4 {
+      width: calc(1 / 4 * 100%);
     }
     .sm\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -604,9 +615,6 @@
     }
   }
   @media (width >= 48rem) {
-    .md\:w-1\/3 {
-      width: calc(1 / 3 * 100%);
-    }
     .md\:text-2xl {
       font-size: var(--text-2xl);
       line-height: var(--tw-leading, var(--text-2xl--line-height));
@@ -620,21 +628,17 @@
       line-height: var(--tw-leading, var(--text-xl--line-height));
     }
   }
+  @media (width >= 64rem) {
+    .lg\:w-1\/3 {
+      width: calc(1 / 3 * 100%);
+    }
+  }
   @media (width >= 80rem) {
     .xl\:right-\[1vw\] {
       right: 1vw;
     }
-    .xl\:right-\[5vw\] {
-      right: 5vw;
-    }
-    .xl\:right-\[10vw\] {
-      right: 10vw;
-    }
     .xl\:w-1\/2 {
       width: calc(1 / 2 * 100%);
-    }
-    .xl\:w-3\/4 {
-      width: calc(3 / 4 * 100%);
     }
   }
   .dark\:text-white:where(.dark, .dark *) {
@@ -707,20 +711,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
-.rail {
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline-end: 0;
-  top: 0;
-  right: 0;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: clamp(1rem, 4vw, 2.5rem);
-  z-index: 60;
-}
 .rail-mark {
   font-family: var(--font-display);
   line-height: 0.9;
@@ -764,7 +754,6 @@
   height: 3.25rem;
   padding: 0.75rem;
   border: 2px solid var(--color-edge);
-  background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-display);
   cursor: pointer;
@@ -794,11 +783,11 @@
 @media (max-width: 767px) {
   .rail {
     transform: translateX(100%);
+    transition: transform .25s ease;
     pointer-events: none;
   }
   .rail.is-open {
     transform: translateX(0);
-    transition: transform .25s ease;
     pointer-events: auto;
   }
 }
@@ -807,12 +796,12 @@
 }
 @media (max-width: 767px) {
   .mobile-toggle {
-    display: inline-flex !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: fixed !important;
-    inset-block-end: 0;
-    inset-inline-end: 0;
+    position: fixed;
+    bottom: 1rem;
+    right: 1rem;
     z-index: 70;
   }
 }
@@ -827,14 +816,6 @@
 }
 .mobile-toggle.is-open .rail-icon--close {
   display: block;
-}
-.parallax-section {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 5;
-  will-change: transform;
-  background-color: var(--color-bg);
 }
 .btn {
   display: inline-flex;
@@ -986,6 +967,42 @@
   syntax: "*";
   inherits: false;
 }
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
 @property --tw-duration {
   syntax: "*";
   inherits: false;
@@ -1046,6 +1063,15 @@
       --tw-drop-shadow-color: initial;
       --tw-drop-shadow-alpha: 100%;
       --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
       --tw-duration: initial;
       --tw-scale-x: 1;
       --tw-scale-y: 1;

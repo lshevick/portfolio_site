@@ -75,20 +75,20 @@
 }
 
 /* ---------- Right-aligned vertical nav rail ---------- */
-.rail {
-  position: fixed;
-  inset-block-start: 0;
-  inset-inline-end: 0;
-  top: 0;
-  right: 0;
-  height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: clamp(1rem, 4vw, 2.5rem);
-  z-index: 60;
-}
+/* .rail { */
+/*   position: fixed; */
+/*   inset-block-start: 0; */
+/*   inset-inline-end: 0; */
+/*   top: 0; */
+/*   right: 0; */
+/*   height: 100dvh; */
+/*   display: flex; */
+/*   flex-direction: column; */
+/*   align-items: flex-end; */
+/*   justify-content: space-between; */
+/*   padding: clamp(1rem, 4vw, 2.5rem); */
+/*   z-index: 60; */
+/* } */
 
 .rail-mark {
   font-family: var(--font-display);
@@ -138,7 +138,6 @@
   height: 3.25rem;
   padding: 0.75rem;
   border: 2px solid var(--color-edge);
-  background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-display);
   cursor: pointer;
@@ -165,12 +164,12 @@
 @media (max-width: 767px) {
   .rail {
     transform: translateX(100%);
+    transition: transform .25s ease;
     pointer-events: none;
   }
 
   .rail.is-open {
     transform: translateX(0);
-    transition: transform .25s ease;
     pointer-events: auto;
   }
 }
@@ -180,16 +179,14 @@
 
 @media (max-width: 767px) {
   .mobile-toggle {
-    /* !important so this always beats the base `display:none` above even if Tailwind v4
-       reorders these two rules — otherwise the button silently vanishes on mobile. */
-    display: inline-flex !important;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    position: fixed !important;
-    /* Pinned to the bottom-right corner with position:fixed so it stays reachable while the
-       rail slides off-screen. z-index above the rail (z-60) so the close icon overlays it. */
-    inset-block-end: 0;
-    inset-inline-end: 0;
+    position: fixed;
+    /* inset-block-end: 0; */
+    /* inset-inline-end: 0; */
+    bottom: 1rem;
+    right: 1rem;
     z-index: 70;
   }
 }
@@ -199,19 +196,6 @@
 .mobile-toggle.is-open .rail-icon--bars   { display: none; }
 .rail-icon--close   { display: none; }
 .mobile-toggle.is-open .rail-icon--close { display: block; }
-
-/* ---------- Sticky scroll sections — sliding-sheets parallax ---------- */
-/* Each full-screen section pins in place while scrolling, so the next one rises from below.
-   A subtle translateY (driven by JS per frame) adds layered depth: sheets slide past each
-   other at slightly different rates instead of swapping rigidly. */
-.parallax-section {
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 5;
-  will-change: transform;
-  background-color: var(--color-bg); /* opaque so sheets read as solid layers when they overlap */
-}
 
 /* ---------- Buttons (neo-brutalist) ---------- */
 .btn {

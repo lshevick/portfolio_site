@@ -1,12 +1,12 @@
-<!-- <nav class="fixed top-0 sm:right-0 h-dvh flex sm:flex-col sm:items-end justify-between p-4 z-50" aria-label="Primary"> -->
-<nav class="rail" aria-label="Primary">
+<nav class="rail fixed top-0 right-0 w-75vw sm:w-25vw h-dvh flex flex-col sm:flex-col sm:items-end justify-between p-4 z-50 bg-background/95 backdrop-blur-sm"
+    aria-label="Primary">
     <!-- Mobile pull-out menu toggle lives OUTSIDE .rail so it stays reachable at bottom-right while the rail slides off-screen. -->
     <div>
         <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
     </div>
 
     <ul
-        class="flex sm:flex-col gap-[0.35rem] list-none m-0 p-0 font-[var(--font-display)] uppercase tracking-[-0.02em] overflow-scroll">
+        class="flex flex-col gap-[0.35rem] list-none m-0 p-0 font-[var(--font-display)] uppercase tracking-[-0.02em] overflow-scroll">
         <li><a href="/" class="rail-link is-home">Home</a></li>
         <li><a href="/#about" class="rail-link is-about">About</a></li>
         <li><a href="/#skills" class="rail-link is-skills">Skills</a></li>
@@ -15,8 +15,8 @@
     </ul>
 
     <div>
-        <button type="button" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" class="rail-toggle"
-            title="Toggle dark mode">
+        <button type="button" id="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme rounded-[0.2rem]"
+            class="rail-toggle bg-background/95 backdrop-blur-sm" title="Toggle dark mode">
             <!-- Moon: shown in light mode -->
             <svg class="rail-icon rail-icon--moon" viewBox="0 0 24 24" width="22" height="22" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -36,11 +36,11 @@
 
 <!-- Mobile pull-out menu toggle lives OUTSIDE .rail so it stays reachable at bottom-right while the rail slides off-screen. -->
 <button type="button" id="mobile-toggle"
-    class="mobile-toggle rail-toggle absolute inset-block-end-0 inset-inline-end-0 z-[70]" aria-label="Open menu"
-    aria-expanded="false">
+    class="mobile-toggle rail-toggle absolute inset-block-end-0 inset-inline-end-0 z-70 bg-background/95 backdrop-blur-sm"
+    aria-label="Open menu" aria-expanded="false">
     <!-- Bars: shown when the menu is closed -->
-    <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
-        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor"
+        stroke-width="2" stroke-linecap="round" aria-hidden="true">
         <path d="M5 7h14M5 12h14M5 17h14" />
     </svg>
     <!-- Cross: shown when the menu is open -->
