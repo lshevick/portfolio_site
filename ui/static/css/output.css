@@ -203,6 +203,9 @@
   .collapse {
     visibility: collapse;
   }
+  .fixed {
+    position: fixed;
+  }
   .relative {
     position: relative;
   }
@@ -702,6 +705,43 @@
   display: none;
 }
 .site.dark .rail-toggle .rail-icon--sun {
+  display: block;
+}
+@media (max-width: 767px) {
+  .rail {
+    transform: translateX(100%);
+    pointer-events: none;
+  }
+  .rail.is-open {
+    transform: translateX(0);
+    transition: transform .25s ease;
+    pointer-events: auto;
+  }
+}
+.mobile-toggle {
+  display: none;
+}
+@media (max-width: 767px) {
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    z-index: 70;
+  }
+}
+.rail-icon--bars {
+  display: block;
+}
+.mobile-toggle.is-open .rail-icon--bars {
+  display: none;
+}
+.rail-icon--close {
+  display: none;
+}
+.mobile-toggle.is-open .rail-icon--close {
   display: block;
 }
 .parallax-section {
