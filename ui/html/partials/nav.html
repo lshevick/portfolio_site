@@ -1,18 +1,4 @@
 <nav class="rail" aria-label="Primary">
-    <!-- Mobile pull-out menu toggle (small viewports only; styling in input.css). -->
-    <button type="button" id="mobile-toggle" class="mobile-toggle rail-toggle absolute inset-block-start-0 inset-inline-end-0 z-10"
-        aria-label="Open menu" aria-expanded="false">
-        <!-- Bars: shown when the menu is closed -->
-        <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 7h14M5 12h14M5 17h14" />
-        </svg>
-        <!-- Cross: shown when the menu is open -->
-        <svg class="rail-icon rail-icon--close hidden" viewBox="0 0 24 24" width="22" height="22" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-        </svg>
-    </button>
     <div>
         <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
     </div>
@@ -44,6 +30,23 @@
         </button>
     </div>
 </nav>
+
+<!-- Mobile pull-out menu toggle. Pinned to the corner with position:fixed and kept OUTSIDE
+     <nav class="rail"> so it stays reachable while the rail slides off-screen (a fixed child
+     nested inside a transformed element would ride off with it). Hidden on desktop; styling in input.css. -->
+<button type="button" id="mobile-toggle" class="mobile-toggle rail-toggle"
+    aria-label="Open menu" aria-expanded="false">
+    <!-- Bars: shown when the menu is closed -->
+    <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 7h14M5 12h14M5 17h14" />
+    </svg>
+    <!-- Cross: shown when the menu is open -->
+    <svg class="rail-icon rail-icon--close" viewBox="0 0 24 24" width="22" height="22" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+</button>
 
 <script>
     (function () {
@@ -116,6 +119,9 @@
 
         function setOpen(open) {
             rail.classList.toggle('is-open', open);
+            // Toggle carries its own is-open so the icon swap (icons live inside the button,
+            // not inside .rail) keys off the button's state rather than the rail's.
+            toggle.classList.toggle('is-open', open);
             toggle.setAttribute('aria-expanded', String(open));
             toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
         }

@@ -182,12 +182,20 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    /* Pinned to the top-right corner with position:fixed so it stays reachable while the
+       rail slides off-screen. z-index above the rail (z-60) so the close icon overlays it. */
+    position: fixed;
+    inset-block-start: 0;
+    inset-inline-end: 0;
+    z-index: 70;
   }
 }
 
-/* Icon swap — bars when closed, X when open. */
-.rail.is-open .rail-icon--bars   { display: none; }
-.rail.is-open .rail-icon--close { display: inline-block; }
+/* Icon swap — bars shown by default, X when open; pure CSS so it works at any viewport width. */
+.rail-icon--bars    { display: block; }
+.mobile-toggle.is-open .rail-icon--bars   { display: none; }
+.rail-icon--close   { display: none; }
+.mobile-toggle.is-open .rail-icon--close { display: block; }
 
 /* ---------- Sticky scroll sections — sliding-sheets parallax ---------- */
 /* Each full-screen section pins in place while scrolling, so the next one rises from below.
