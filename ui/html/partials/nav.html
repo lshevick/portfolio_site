@@ -1,4 +1,18 @@
 <nav class="rail" aria-label="Primary">
+    <!-- Mobile pull-out menu toggle (small viewports only; styling in input.css). -->
+    <button type="button" id="mobile-toggle" class="mobile-toggle rail-toggle absolute inset-block-start-0 inset-inline-end-0 z-10"
+        aria-label="Open menu" aria-expanded="false">
+        <!-- Bars: shown when the menu is closed -->
+        <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M5 7h14M5 12h14M5 17h14" />
+        </svg>
+        <!-- Cross: shown when the menu is open -->
+        <svg class="rail-icon rail-icon--close hidden" viewBox="0 0 24 24" width="22" height="22" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+    </button>
     <div>
         <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
     </div>
@@ -93,5 +107,34 @@
         window.addEventListener('scroll', onScroll, {passive: true});
         window.addEventListener('resize', function () {render();});
         render();
+    })();
+
+    (function () {
+        var toggle = document.getElementById('mobile-toggle');
+        var rail = document.querySelector('.rail');
+        if (!toggle || !rail) return;
+
+        function setOpen(open) {
+            rail.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        }
+
+        toggle.addEventListener('click', function () {
+            setOpen(!rail.classList.contains('is-open'));
+        });
+
+        document.querySelectorAll('.rail-link').forEach(function (link) {
+            link.addEventListener('click', function () { setOpen(false); });
+        });
+
+        window.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && rail.classList.contains('is-open')) setOpen(false);
+        });
+
+        // Leaving the mobile viewport: close the drawer and restore the desktop rail.
+        window.addEventListener('resize', function () {
+            if (!window.matchMedia('(max-width: 767px)').matches) setOpen(false);
+        });
     })();
 </script>

@@ -156,6 +156,39 @@
 .site.dark .rail-toggle .rail-icon--moon { display: none; }
 .site.dark .rail-toggle .rail-icon--sun  { display: block; }
 
+/* ---------- Mobile pull-out nav drawer ---------- */
+/* Small viewports only. The always-visible rail is pushed off the right edge and
+   slides back in when #mobile-toggle adds .is-open. Full viewport height, transparent
+   (no background), so content shows through. One transform transition drives both the
+   open and close directions. */
+@media (max-width: 767px) {
+  .rail {
+    transform: translateX(100%);
+    pointer-events: none;
+  }
+
+  .rail.is-open {
+    transform: translateX(0);
+    transition: transform .25s ease;
+    pointer-events: auto;
+  }
+}
+
+/* Hamburger / close toggle — hidden on desktop, shown only on mobile. */
+.mobile-toggle { display: none; }
+
+@media (max-width: 767px) {
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Icon swap — bars when closed, X when open. */
+.rail.is-open .rail-icon--bars   { display: none; }
+.rail.is-open .rail-icon--close { display: inline-block; }
+
 /* ---------- Sticky scroll sections — sliding-sheets parallax ---------- */
 /* Each full-screen section pins in place while scrolling, so the next one rises from below.
    A subtle translateY (driven by JS per frame) adds layered depth: sheets slide past each
