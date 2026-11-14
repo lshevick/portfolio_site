@@ -180,13 +180,15 @@
 
 @media (max-width: 767px) {
   .mobile-toggle {
-    display: inline-flex;
+    /* !important so this always beats the base `display:none` above even if Tailwind v4
+       reorders these two rules — otherwise the button silently vanishes on mobile. */
+    display: inline-flex !important;
     align-items: center;
     justify-content: center;
-    /* Pinned to the top-right corner with position:fixed so it stays reachable while the
+    position: fixed !important;
+    /* Pinned to the bottom-right corner with position:fixed so it stays reachable while the
        rail slides off-screen. z-index above the rail (z-60) so the close icon overlays it. */
-    position: fixed;
-    inset-block-start: 0;
+    inset-block-end: 0;
     inset-inline-end: 0;
     z-index: 70;
   }
