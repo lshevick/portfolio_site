@@ -120,7 +120,7 @@
   transition: color .15s ease, transform .15s ease, border-color .15s ease;
 }
 
-.rail-link:hover { transform: translateX(-4px); }
+.rail-link:hover { transform: translateY(-4px); }
 
 /* Active / in-view highlight */
 .rail-link.is-active {
