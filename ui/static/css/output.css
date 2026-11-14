@@ -621,11 +621,20 @@
     }
   }
   @media (width >= 80rem) {
+    .xl\:right-\[1vw\] {
+      right: 1vw;
+    }
+    .xl\:right-\[5vw\] {
+      right: 5vw;
+    }
     .xl\:right-\[10vw\] {
       right: 10vw;
     }
     .xl\:w-1\/2 {
       width: calc(1 / 2 * 100%);
+    }
+    .xl\:w-3\/4 {
+      width: calc(3 / 4 * 100%);
     }
   }
   .dark\:text-white:where(.dark, .dark *) {
