@@ -1,20 +1,6 @@
 <!-- <nav class="fixed top-0 sm:right-0 h-dvh flex sm:flex-col sm:items-end justify-between p-4 z-50" aria-label="Primary"> -->
 <nav class="rail" aria-label="Primary">
-    <!-- Mobile pull-out menu toggle (small viewports only; styling in input.css). -->
-    <button type="button" id="mobile-toggle"
-        class="mobile-toggle rail-toggle absolute inset-block-end-0 inset-inline-end-0 z-[70]" aria-label="Open menu"
-        aria-expanded="false">
-        <!-- Bars: shown when the menu is closed -->
-        <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M5 7h14M5 12h14M5 17h14" />
-        </svg>
-        <!-- Cross: shown when the menu is open -->
-        <svg class="rail-icon rail-icon--close hidden" viewBox="0 0 24 24" width="22" height="22" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M6 6l12 12M18 6L6 18" />
-        </svg>
-    </button>
+    <!-- Mobile pull-out menu toggle lives OUTSIDE .rail so it stays reachable at bottom-right while the rail slides off-screen. -->
     <div>
         <a href="/" class="rail-mark hover:text-accent transition-colors">Levi Shevick</a>
     </div>
@@ -47,6 +33,22 @@
         </button>
     </div>
 </nav>
+
+<!-- Mobile pull-out menu toggle lives OUTSIDE .rail so it stays reachable at bottom-right while the rail slides off-screen. -->
+<button type="button" id="mobile-toggle"
+    class="mobile-toggle rail-toggle absolute inset-block-end-0 inset-inline-end-0 z-[70]" aria-label="Open menu"
+    aria-expanded="false">
+    <!-- Bars: shown when the menu is closed -->
+    <svg class="rail-icon rail-icon--bars" viewBox="0 0 24 24" width="22" height="22" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 7h14M5 12h14M5 17h14" />
+    </svg>
+    <!-- Cross: shown when the menu is open -->
+    <svg class="rail-icon rail-icon--close hidden" viewBox="0 0 24 24" width="22" height="22" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+</button>
 
 <script>
     (function () {
