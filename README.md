@@ -25,11 +25,12 @@ The site is served at `https://<user>.github.io/<repo>/` (or a custom domain con
 
 ## Regenerating CSS
 
-`css/output.css` is built from `ui/static/css/input.css` with the tailwind CLI (`tailwindcss`).
-Regenerate after any styling change:
+`css/output.css` is built from `css/input.css` with the tailwind CLI (`tailwindcss`). The build reads
+`tailwind.config.js` (content globs) and class-based dark mode defined in `input.css`. Regenerate after
+any styling change:
 
 ```bash
-./tailwindcss -i ui/static/css/input.css -o css/output.css --minify
+./tailwindcss -i css/input.css -o css/output.css --minify
 ```
 
 ## Local preview
