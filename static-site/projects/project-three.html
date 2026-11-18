@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="css/output.css" />
+    <link rel="stylesheet" href="../css/output.css" />
     <link href="https://fonts.cdnfonts.com/css/space-grotesk" rel="stylesheet">
     <title>Levi Shevick | Software Generalist</title>
     <!-- Restore persisted theme before paint to avoid a flash on reload -->
@@ -31,7 +31,7 @@
         <li><a href="/" class="rail-link is-home">Home</a></li>
         <li><a href="/#about" class="rail-link is-about">About</a></li>
         <li><a href="/#skills" class="rail-link is-skills">Skills</a></li>
-        <li><a href="/projects" class="rail-link is-projects">Projects</a></li>
+        <li><a href="/projects.html" class="rail-link is-projects">Projects</a></li>
         <li><a href="/#contact" class="rail-link is-contact">Contact</a></li>
     </ul>
 
@@ -174,29 +174,29 @@
         
         <main class="bg-bg">
     <article class="min-h-screen flex flex-col items-start px-6 py-24 border-b-2 border-edge max-w-5xl">
-        <a href="/projects" class="inline-flex items-center gap-3 font-display uppercase tracking-tight text-accent hover:underline mb-10 text-sm">&larr; Back to projects</a>
+        <a href="/projects.html" class="inline-flex items-center gap-3 font-display uppercase tracking-tight text-accent hover:underline mb-10 text-sm">&larr; Back to projects</a>
 
         <header class="mb-16">
             <p class="font-display uppercase tracking-tight text-muted mb-4">// Project</p>
-            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Project Three</h1>
-            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">Short description goes here.</p>
+            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Redline</h1>
+            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">An LLM-powered code reviewer that runs in CI and comments on every pull request.</p>
         </header>
 
         <div class="grid sm:grid-cols-2 gap-10 items-center mb-16">
-            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center text-8xl select-none opacity-40">🏭</figure>
+            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center text-8xl select-none opacity-40">🔍</figure>
             <div class="space-y-5 font-body text-lg leading-relaxed text-muted">
-                <p>Replace this with a sentence or two about what the project is and why it matters to you.</p>
-                <p>This layout is ready to go — swap in your own photo, description and highlights below.</p>
+                <p>Redline is a bot that lives in your CI pipeline. It reads the diff of every pull request, runs an LLM over it, and posts back prioritized feedback — bugs, security smells, and style nits — as comments on the PR.</p>
+                <p>The interesting part wasn't calling the API; it was teaching the model to stop inventing line numbers. Getting it to cite real hunks reliably took most of the work.</p>
             </div>
         </div>
 
         <section class="mb-12">
-            <h2 class="font-display uppercase tracking-tight text-black dark:text-white text-3xl mb-8">Highlights</h2>
+            <h2 class="font-display uppercase tracking-tight text-black dark:text-white text-3xl mb-8">What's involved</h2>
             <ul class="grid sm:grid-cols-2 gap-6">
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">What you built</span><span class="font-body text-muted">A short summary of the project.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">The challenge</span><span class="font-body text-muted">What made it interesting or hard.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Tools used</span><span class="font-body text-muted">Languages, frameworks or hardware.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Result</span><span class="font-body text-muted">What you shipped or learned.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Diff parsing</span><span class="font-body text-muted">Turning a git patch into structured hunks the model can actually reason about.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Prompt &amp; context</span><span class="font-body text-muted">Tuning system prompts and diff size so reviews stay focused and cheap.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Hallucination guardrails</span><span class="font-body text-muted">Forcing the model to cite line numbers it can back up, with a confidence score.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">CI integration</span><span class="font-body text-muted">Posting comments and verdicts back into GitHub pull requests via Actions.</span></li>
             </ul>
         </section>
 
