@@ -1,14 +1,13 @@
-.git
-node_modules
+# Dev tooling / build cache
+node_modules/
 package-lock.json
-*.log
-*.db
-*.db-shm
-*.db-wal
 tmp/
-.env
-package.json
-postcss.config.js
-tailwind.config.js
-tailwindcss
 .air.toml
+
+# Local environment
+.env
+data/
+
+# Tailwind CLI binary + config (dev-only; css/output.css is committed)
+tailwindcss
+tailwind.config.js

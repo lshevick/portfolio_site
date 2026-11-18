@@ -1,37 +1,35 @@
 # Conventions
 
-How to write code in this project. Loaded on demand — read when relevant, not every request. Keep the root
+How to work in this project. Loaded on demand — read when relevant, not every request. Keep the root
 instructions file small for the same reason.
 
-## Layout (high level)
+## What this branch is
 
-- `cmd/web/` — Go HTTP server: routing, middleware, handlers, template rendering.
-- `ui/` — frontend: HTML/CSS embedded via `//go:embed`.
-- `internal/{config,models,store}` — layered backend packages; config → models → store.
-- `docs/` — reference docs for agents and humans.
+This branch (`sonny-gh-pages`) holds **only the static site** and is dedicated to GitHub Pages hosting.
+It will never be merged into `master`. The Go backend that used to live here now lives on `master`; do not
+reintroduce server code on this branch.
 
-Do NOT list every file here; exact filenames drift. See the actual code when you need specifics.
+## Layout (repo root)
 
-## Templates (`html/template`)
+- `index.html` — home page (About / Skills / Projects / Contact).
+- `projects.html` — projects index.
+- `nav.html` — nav partial (unused by the current pages; kept for reference).
+- `css/input.css` — Tailwind source. **Do not hand-edit**; edit this and rebuild.
+- `css/output.css` — built stylesheet, referenced by every page. Committed so Pages needs no build step.
+- `projects/*.html` — individual project pages.
 
-- Rendered with `template.ParseFS(ui.Files, ...)` using patterns: `home.html`, `partials/*.html`, then
-  the page itself (see `cmd/web/templates.go`).
-- The base layout is registered as `"base"` and executed via `ExecuteTemplate(w, "base", data)`.
-- **Static partials only.** `{{template}}` inclusion works for static partials; a nav/layout file that
-  contains directives evaluated eagerly at parse time breaks the build. Keep directive-heavy logic out
-  of shared layout includes.
-- Always pass a fresh `data` struct per render.
+## CSS (Tailwind v4)
 
-## CSS (Tailwind)
+- Source: `css/input.css`. Built output referenced by HTML: `css/output.css`.
+- Regenerate with the tailwind CLI after any styling change:
+  ```bash
+  ./tailwindcss -i css/input.css -o css/output.css --minify
+  ```
+- Content globs are pinned in `tailwind.config.js` so unused utilities are purged. Class-based dark mode
+  is defined in `input.css` via `@custom-variant`, not the config.
 
-- Source: `ui/static/css/input.css`. Built output referenced by HTML: `output.css`.
-- Regenerate with the tailwind CLI watch (`--watch`) after any template/CSS change. Don't hand-edit
-  `output.css`.
+## Verifying a change
 
-## Backend stack
-
-- Sessions/auth: `alexedwards/scs/v2` + `scs/sqlite3store`; CSRF via `justinas/nosurf`; forms via
-  `go-playground/form/v4`; routing via `julienschmidt/httprouter`; middleware chaining via
-  `justinas/alice`.
-- Keep parameterized queries; reuse error vars in `internal/models/errors.go` (e.g. `ErrInvalidCredentials`,
-  `ErrDuplicateEmails`, `ErrDuplicateSlug`).
+1. Serve locally (`python3 -m http.server 8000 --bind 127.0.0.1`) and open each page + project page.
+2. Confirm every asset resolves — CSS loads and all internal links return 200 (no 404s).
+3. If you touched styling, rebuild `css/output.css` from `css/input.css`, then reload to confirm it's live.

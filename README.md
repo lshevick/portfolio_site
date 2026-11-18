@@ -1,63 +1,42 @@
 # Portfolio Website
 
-A modern, responsive website built with **Tailwind CSS** and hosted locally using **Parcel**. This project serves as a personal portfolio to showcase skills, projects, and experiences.
+A personal portfolio built with **HTML + Tailwind CSS** and hosted on **GitHub Pages**. It is a
+static site — no build step, no server required to view or deploy it.
 
-## Features
-- Clean, responsive design using Tailwind CSS for styling.
-- Fast loading with optimized assets.
-- Easy to customize and extend.
+## Layout
 
-## Setup Instructions
-### Prerequisites
-Ensure you have the following installed:
-- Node.js (v18 or later)
-- npm or yarn
+All content lives at the repo root:
 
-### Installation
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-repo-url.git
-   cd portfolio
-   ```
+- `index.html` — home page (About / Skills / Projects / Contact).
+- `projects.html` — projects index.
+- `nav.html` — nav partial (unused by the current pages; kept for reference).
+- `css/output.css` — built Tailwind stylesheet.
+- `projects/*.html` — individual project pages.
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
+## Hosting on GitHub Pages
 
-3. Start the development server:
-   ```bash
-   npm start
-   ```
+Deployment is handled by `.github/workflows/pages.yml`, which publishes from the repo root to the
+`gh-pages` branch via GitHub Actions. To make it live:
 
-The site will open in your default browser at `http://localhost:1234`.
+1. Go to **Settings → Pages** in the repo and set the source to **GitHub Actions**.
+2. Push this branch (`sonny-gh-pages`) — the workflow deploys on each push/PR.
 
-## Project Structure
-- **`src/`**: Contains all source files (HTML, CSS, JavaScript).
-  - Currently empty; source files should be added here.
-- **`node_modules/`**: Installed dependencies.
-- **`package.json`**: Project configuration and scripts.
+The site is served at `https://<user>.github.io/<repo>/` (or a custom domain configured under Pages).
 
-## Configuration Files
-### Tailwind CSS
-The project uses Tailwind CSS for styling. Ensure the `tailwind.config.js` file is properly set up in a subdirectory if it exists elsewhere or configure it as needed.
+## Regenerating CSS
 
-### PostCSS
-PostCSS processes CSS and JS files. If missing, install it via:
+`css/output.css` is built from `css/input.css` with the tailwind CLI (`tailwindcss`). The build reads
+`tailwind.config.js` (content globs) and class-based dark mode defined in `input.css`. Regenerate after
+any styling change:
+
 ```bash
-npm install --save-dev postcss autoprefixer
+./tailwindcss -i css/input.css -o css/output.css --minify
 ```
 
-## Running the Project
-- **Development Mode**: Run `npm start` to start the server with hot-reloading.
-- **Production Build**: Run `npm run build` to generate optimized production files in the `dist/` directory.
+## Local preview
 
-## License
-This project is open-source and available under the [MIT License](LICENSE).
+Serve the static files directly — no Go server required:
 
-## Contact
-For questions or contributions, please reach out:
-- Email: your.email@example.com
-- GitHub: [Your GitHub Profile](https://github.com/your-profile)
-
----
+```bash
+python3 -m http.server 8000 --bind 127.0.0.1   # open http://127.0.0.1:8000
+```

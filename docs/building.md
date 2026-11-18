@@ -1,34 +1,38 @@
 # Building & Running
 
-Operational reference — read when you need to run or build the project. 
+Operational reference — read when you need to run or build the project.
 
-## Dev server (air)
+## GitHub Pages hosting (this branch)
 
-- The dev server runs via [`air`](https://github.com/cosmtks/air), which hot-reloads on change. It is
-  normally already running while you work — check `localhost:8080` before assuming anything.
-- `.air.toml` builds `go build -o ./tmp/main ./cmd/web` and runs the resulting `./tmp/main`.
-- `tmp/` is a **build artifact**. Do not commit it; delete it before committing (and gitignore it).
-- The tailwind CLI watches `ui/static/css/input.css` → regenerates `output.css`. Regenerate CSS after
-  any template or styling change.
+This branch is dedicated to the static site and is **never merged into master**. The site lives at
+the repo root as plain HTML/CSS — no build step, no server needed.
 
-## Expected runtime
+- Files: `index.html`, `projects.html`, `nav.html`, `css/output.css`, and `projects/*.html`.
+- Deployed by `.github/workflows/pages.yml` (GitHub Actions → `peaceiris/actions-gh-pages`) on push to
+  this branch / PRs, publishing from the repo root to the `gh-pages` branch.
+- To view it live: enable **Pages** in repo Settings and pick the **GitHub Actions** source (or "Deploy
+  from branch" pointing at this branch). Site URL is `https://<user>.github.io/<repo>/`, or a custom
+  domain configured under Pages.
 
-- Server binds `localhost:8080` (see `docs/server.md`). Confirm it is actually listening before you
-  assume it — the bind/startup code in `cmd/web/main.go` is currently commented out, so verify by
-  hitting the port rather than trusting it.
-- If nothing answers on `localhost:8080`, tell the user; don't try to fix the server yourself.
+## Local preview
 
-## Building a standalone binary
+Serve the static files directly — no Go server required:
 
 ```bash
-go build -o ./tmp/main ./cmd/web
-./tmp/main
+python3 -m http.server 8000 --bind 127.0.0.1   # then open http://127.0.0.1:8000
 ```
-This is the same command air uses, so it's what you get if/when air isn't running.
+
+## Regenerating CSS
+
+`css/output.css` is built from `css/input.css` with the tailwind CLI (`tailwindcss`). Regenerate after
+any styling change:
+
+```bash
+./tailwindcss -i css/input.css -o css/output.css --minify
+```
 
 ## Verifying your change
 
-1. Confirm the dev server is running (`air`).
-2. Hit the affected route with `curl`.
-3. For template/CSS changes, wait for tailwind to regenerate `output.css`, then reload.
-4. Run `go build ./internal/...` (and `./cmd/web/...`) — it must compile cleanly before you claim done.
+1. Serve locally (see above) and open each page + project page in a browser.
+2. Confirm every asset resolves — CSS loads and all internal links return 200 (no 404s).
+3. Regenerate `css/output.css` if you touched styling, then reload to confirm the change is live.
