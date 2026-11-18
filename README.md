@@ -23,7 +23,7 @@ ui/          Frontend HTML/CSS embedded via //go:embed; templates render with ht
   ui/html/    base layout + page templates (home, projects, project detail pages)
   ui/static/css/input.css   -> output.css (Tailwind build output)
 internal/{config,models,store}  Layered backend packages; config -> models -> store
-static-site/  Separate static GitHub Pages build (see below)
+static-site/  Static GitHub Pages build (separate from the Go app)
 docs/        Reference docs for agents and humans
 ```
 
@@ -40,46 +40,6 @@ docs/        Reference docs for agents and humans
 - Go 1.27.x
 - [`air`](https://github.com/cosmtks/air) for hot-reloading dev runs (optional — see below)
 
-## Getting started
-
-### Dev server (`air`)
-
-`air` is the normal way to run it; it hot-reloads on change. `.air.toml` builds and runs:
-
-```bash
-go build -o ./tmp/main ./cmd/web   # then air runs ./tmp/main
-```
-
-- The Tailwind CLI watches `ui/static/css/input.css` and regenerates `output.css`; rebuild CSS after any
-  template or styling change.
-- `tmp/` is a **build artifact** — delete it before committing (it's gitignored).
-- If you don't have `air`, run the same command directly:
-
-```bash
-go build -o ./tmp/main ./cmd/web
-./tmp/main
-```
-
-### Configuration
-
-Reads from environment variables (loaded via `.env` in local dev):
-
-| Var        | Default            | Notes                          |
-| ---------- | ------------------ | ------------------------------ |
-| `PORT`     | `localhost:8080`   | Server bind address            |
-| `DB_PATH`  | `./data/app.db`    | SQLite database file           |
-| `UI_DIR`   | — (embedded)       | N/A; frontend is embedded      |
-
-## Routes
-
-| Path                          | Handler                    | Description              |
-| ----------------------------- | -------------------------- | ------------------------ |
-| `/`                          | `home`                     | Home page                |
-| `/projects`                  | `projectsList`             | Projects index           |
-| `/projects/custom-keyboard`  | `projectCustomKeyboardPage`| Project detail page      |
-| `/projects/project-two`      | `projectTwoPage`           | Project detail page      |
-| `/projects/project-three`    | `projectThreePage`         | Project detail page      |
-
 ## Building a standalone binary
 
 ```bash
@@ -88,12 +48,6 @@ go build -o ./tmp/main ./cmd/web
 ```
 
 Same command `air` uses, so it's what you get if/when air isn't running.
-
-## Deployment note: static GitHub Pages build
-
-`static-site/` is a **separate** static build (pre-rendered HTML + CSS) used to deploy this portfolio to
-GitHub Pages — it is not produced by the Go app and lives outside its own branch's normal flow. The Go
-app on `localhost:8080` is the live, template-driven version.
 
 ## Verifying your change
 
