@@ -24,11 +24,11 @@ python3 -m http.server 8000 --bind 127.0.0.1   # then open http://127.0.0.1:8000
 
 ## Regenerating CSS
 
-`css/output.css` is built from `ui/static/css/input.css` with the tailwind CLI (`tailwindcss`).
-Regenerate after any styling change:
+`css/output.css` is built from `css/input.css` with the tailwind CLI (`tailwindcss`). Regenerate after
+any styling change:
 
 ```bash
-./tailwindcss -i ui/static/css/input.css -o css/output.css --minify
+./tailwindcss -i css/input.css -o css/output.css --minify
 ```
 
 ## Verifying your change
