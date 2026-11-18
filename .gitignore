@@ -2,9 +2,11 @@
 node_modules/
 package-lock.json
 tmp/
+.air.toml
 
 # Local environment
 .env
+data/
 
 # Tailwind CLI binary + config (dev-only; css/output.css is committed)
 tailwindcss
