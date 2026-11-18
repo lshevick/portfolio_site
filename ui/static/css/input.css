@@ -1,0 +1,242 @@
+@import "tailwindcss";
+@import url('https://fonts.cdnfonts.com/css/space-grotesk');
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* =====================================================================
+   BRUTALIST DESIGN SYSTEM — Levi Shevick portfolio
+   Stark paper-white / ink-black contrast + one signature accent.
+   Heavy grotesque display type, mono labels, thick edges, hard shadows.
+   Dark mode is class-based: add "dark" to <html> (see base.html).
+   ===================================================================== */
+
+/* ---------- Design tokens ---------- */
+@theme {
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Space Grotesk", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+
+  /* Light (default) */
+  --color-bg: #faf8f5;
+  --color-surface: #e9e6df;
+  --color-text: #0a0a0a;
+  --color-edge: #0a0a0a;
+  --color-muted: #5c584f;
+  --color-accent: #5AA382;
+  --color-thumb-bg: #efeae1;
+
+  /* Container widths */
+  --container-2xl: 42rem;
+  --container-3xl: 48rem;
+}
+
+/* ---------- Theme root (class-based dark mode) ---------- */
+.site {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  transition: background-color .25s ease, color .25s ease;
+}
+
+/* Dark mode override — applied when .dark is on <html> */
+.site.dark {
+  --color-bg: #0a0a0a;
+  --color-surface: #171717;
+  --color-text: #f5f3ee;
+  --color-edge: #f5f3ee;
+  --color-muted: #9a968c;
+  --color-accent: #6fd09b;
+  --color-thumb-bg: #232323;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* ---------- Utility mappings (kept for page compatibility) ---------- */
+.text-text { color: var(--color-text); }
+.site.dark .text-text { color: var(--color-text); }
+
+.text-muted { color: var(--color-muted); }
+.site.dark .text-muted { color: var(--color-muted); }
+
+.bg-gray-50 { background-color: #f3f4f6; }
+.site.dark .bg-gray-50 { background-color: #2a2e37; }
+
+.bg-surface { background-color: var(--color-surface); }
+.site.dark .bg-surface { background-color: var(--color-surface); }
+
+.bg-thumb-bg { background-color: var(--color-thumb-bg); }
+.site.dark .bg-thumb-bg { background-color: var(--color-thumb-bg); }
+
+.border-surface { border-color: var(--color-surface); }
+.site.dark .border-surface { border-color: var(--color-surface); }
+
+/* ---------- Brutalist base layer ---------- */
+@layer base {
+  html, body { scroll-behavior: smooth; }
+  body { @apply font-body bg-bg text-text antialiased; }
+}
+
+/* ---------- Right-aligned vertical nav rail ---------- */
+/* .rail { */
+/*   position: fixed; */
+/*   inset-block-start: 0; */
+/*   inset-inline-end: 0; */
+/*   top: 0; */
+/*   right: 0; */
+/*   height: 100dvh; */
+/*   display: flex; */
+/*   flex-direction: column; */
+/*   align-items: flex-end; */
+/*   justify-content: space-between; */
+/*   padding: clamp(1rem, 4vw, 2.5rem); */
+/*   z-index: 60; */
+/* } */
+
+.rail-mark {
+  font-family: var(--font-display);
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  text-transform: uppercase;
+  font-size: clamp(1.25rem, 3vw, 2rem);
+}
+
+.rail-links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+}
+
+.rail-link {
+  display: inline-block;
+  padding: 0.35rem 0;
+  color: inherit;
+  text-decoration: none;
+  font-size: clamp(0.85rem, 1.6vw, 1.05rem);
+  border-bottom: 2px solid transparent;
+  transition: color .15s ease, transform .15s ease, border-color .15s ease;
+}
+
+.rail-link:hover { transform: translateY(-4px); }
+
+/* Active / in-view highlight */
+.rail-link.is-active {
+  color: var(--color-accent);
+  font-weight: 900;
+  border-bottom-width: 4px;
+}
+
+/* Theme toggle — big mono glyph button, bottom of the rail */
+.rail-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  padding: 0.75rem;
+  border: 2px solid var(--color-edge);
+  color: var(--color-text);
+  font-family: var(--font-display);
+  cursor: pointer;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.rail-toggle:hover { transform: translate(-2px, -2px); }
+.site.dark .rail-toggle:hover { box-shadow: 4px 4px 0 #f5f3ee; }
+.site:not(.dark) .rail-toggle:hover { box-shadow: 4px 4px 0 #0a0a0a; }
+
+/* Theme toggle icon — swap the inline SVGs by theme class. Icons inherit the button's
+   currentColor (text color), so moon strokes dark in light mode and sun strokes white
+   in dark mode automatically via --color-text on <html>. */
+.site:not(.dark) .rail-toggle .rail-icon--moon { display: block; }
+.site:not(.dark) .rail-toggle .rail-icon--sun  { display: none; }
+.site.dark .rail-toggle .rail-icon--moon { display: none; }
+.site.dark .rail-toggle .rail-icon--sun  { display: block; }
+
+/* ---------- Mobile pull-out nav drawer ---------- */
+/* Small viewports only. The always-visible rail is pushed off the right edge and
+   slides back in when #mobile-toggle adds .is-open. Full viewport height, transparent
+   (no background), so content shows through. One transform transition drives both the
+   open and close directions. */
+@media (max-width: 767px) {
+  .rail {
+    transform: translateX(100%);
+    transition: transform .25s ease;
+    pointer-events: none;
+  }
+
+  .rail.is-open {
+    transform: translateX(0);
+    pointer-events: auto;
+  }
+}
+
+/* Hamburger / close toggle — hidden on desktop, shown only on mobile. */
+.mobile-toggle { display: none; }
+
+@media (max-width: 767px) {
+  .mobile-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    /* inset-block-end: 0; */
+    /* inset-inline-end: 0; */
+    bottom: 1rem;
+    right: 1rem;
+    z-index: 70;
+  }
+}
+
+/* Icon swap — bars shown by default, X when open; pure CSS so it works at any viewport width. */
+.rail-icon--bars    { display: block; }
+.mobile-toggle.is-open .rail-icon--bars   { display: none; }
+.rail-icon--close   { display: none; }
+.mobile-toggle.is-open .rail-icon--close { display: block; }
+
+/* ---------- Buttons (neo-brutalist) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.5rem;
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  font-size: 1rem;
+  border: 2px solid var(--color-edge);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.btn:hover { transform: translate(-2px, -2px); }
+.site.dark .btn:hover { box-shadow: 4px 4px 0 var(--color-accent);}
+.site:not(.dark) .btn:hover { box-shadow: 4px 4px 0 #0a0a0a; }
+
+.btn--accent { background-color: var(--color-accent); color: #0a0a0a; border-color: #0a0a0a; }
+.site.dark .btn--accent { background-color: var(--color-accent); color: #0a0a0a; }
+
+/* ---------- Project / info cards ---------- */
+.card {
+  border: 2px solid var(--color-edge);
+  background-color: var(--color-bg);
+  padding: 1.5rem;
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.site.dark .card:hover { box-shadow: 6px 6px 0 #f5f3ee; transform: translate(-2px, -2px);}
+.site:not(.dark) .card:hover { box-shadow: 6px 6px 0 #0a0a0a; transform: translate(-2px, -2px);}
+
+/* ---------- Footer ---------- */
+.footer {
+  border-top: 4px solid var(--color-edge);
+  background-color: var(--color-bg);
+}
+
+.site.dark .footer { background-color: #0a0a0a; }
