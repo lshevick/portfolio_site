@@ -178,25 +178,27 @@
 
         <header class="mb-16">
             <p class="font-display uppercase tracking-tight text-muted mb-4">// Project</p>
-            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Redline</h1>
-            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">An LLM-powered code reviewer that runs in CI and comments on every pull request.</p>
+            <h1 class="font-display uppercase leading-[0.9] tracking-tighter text-black dark:text-white text-[clamp(2.5rem,10vw,7rem)] mb-6">Self-Hosted LLM</h1>
+            <p class="text-xl md:text-2xl font-body text-muted leading-relaxed max-w-2xl">An open-source LLM running on my own hardware — no API, no cloud, data stays off my network.</p>
         </header>
 
         <div class="grid sm:grid-cols-2 gap-10 items-center mb-16">
-            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center text-8xl select-none opacity-40">🔍</figure>
+            <figure class="overflow-hidden border-2 border-edge bg-thumb-bg flex items-center justify-center">
+                <img src="/images/desk_setup.jpg" width="600" height="450" alt="A home-lab desk with a monitor, keyboard and the server running my self-hosted LLM" class="w-full h-full object-cover">
+            </figure>
             <div class="space-y-5 font-body text-lg leading-relaxed text-muted">
-                <p>Redline is a bot that lives in your CI pipeline. It reads the diff of every pull request, runs an LLM over it, and posts back prioritized feedback — bugs, security smells, and style nits — as comments on the PR.</p>
-                <p>The interesting part wasn't calling the API; it was teaching the model to stop inventing line numbers. Getting it to cite real hunks reliably took most of the work.</p>
+                <p>Self-hosting an LLM means running a big open model on my own machine instead of renting it from the cloud — a single GPU box that answers questions, drafts code, and summarizes docs without ever sending data off my network.</p>
+                <p>The interesting part wasn't downloading the weights; it was making them actually useful — squeezing enough VRAM into context, keeping generation cheap with quantization, and getting responses fast enough to feel instant took most of the work.</p>
             </div>
         </div>
 
         <section class="mb-12">
             <h2 class="font-display uppercase tracking-tight text-black dark:text-white text-3xl mb-8">What's involved</h2>
             <ul class="grid sm:grid-cols-2 gap-6">
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Diff parsing</span><span class="font-body text-muted">Turning a git patch into structured hunks the model can actually reason about.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Prompt &amp; context</span><span class="font-body text-muted">Tuning system prompts and diff size so reviews stay focused and cheap.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Hallucination guardrails</span><span class="font-body text-muted">Forcing the model to cite line numbers it can back up, with a confidence score.</span></li>
-                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">CI integration</span><span class="font-body text-muted">Posting comments and verdicts back into GitHub pull requests via Actions.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Model selection</span><span class="font-body text-muted">Picking weights that fit my GPU's VRAM without sacrificing quality.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Quantization &amp; speed</span><span class="font-body text-muted">Compressing the model so it runs locally at interactive latency instead of in the cloud.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Context engineering</span><span class="font-body text-muted">Chunking docs and tuning prompt size so answers stay grounded and cheap.</span></li>
+                <li class="card"><span class="block font-display uppercase text-accent text-lg mb-2">Guardrails</span><span class="font-body text-muted">Rejecting low-confidence replies and refusing to fabricate facts I can't back up.</span></li>
             </ul>
         </section>
 
