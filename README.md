@@ -1,63 +1,106 @@
 # Portfolio Website
 
-A modern, responsive website built with **Tailwind CSS** and hosted locally using **Parcel**. This project serves as a personal portfolio to showcase skills, projects, and experiences.
+A personal portfolio site: a Go HTTP backend (`cmd/web`) that renders an embedded HTML/CSS frontend
+(`ui/`) with `html/template`. It showcases projects and blog posts, with session auth, CSRF protection,
+and nosurf headers wired in.
 
-## Features
-- Clean, responsive design using Tailwind CSS for styling.
-- Fast loading with optimized assets.
-- Easy to customize and extend.
+## Tech stack
 
-## Setup Instructions
-### Prerequisites
-Ensure you have the following installed:
-- Node.js (v18 or later)
-- npm or yarn
+- **Backend:** Go 1.27.x — routing via [`httprouter`](https://github.com/julienschmidt/httprouter),
+  middleware chaining via [`alice`](https://github.com/justinas/alice), sessions/auth with
+  [`scs/v2`](https://github.com/alexedwards/scs) + `sqlite3store`, CSRF via
+  [`nosurf`](https://github.com/justinas/nosurf), form decoding via
+  [`go-playground/form/v4`](https://github.com/go-playground/form).
+- **Frontend:** HTML/CSS embedded into the binary with `//go:embed` (`ui/embed.go`) and rendered with
+  `html/template`. Styling is [Tailwind CSS](https://tailwindcss.com), built by the Tailwind CLI.
+- **Data:** SQLite (parameterized queries, migrations in `internal/store/migrations/`).
 
-### Installation
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/your-repo-url.git
-   cd portfolio
-   ```
+## Layout
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Start the development server:
-   ```bash
-   npm start
-   ```
-
-The site will open in your default browser at `http://localhost:1234`.
-
-## Project Structure
-- **`src/`**: Contains all source files (HTML, CSS, JavaScript).
-  - Currently empty; source files should be added here.
-- **`node_modules/`**: Installed dependencies.
-- **`package.json`**: Project configuration and scripts.
-
-## Configuration Files
-### Tailwind CSS
-The project uses Tailwind CSS for styling. Ensure the `tailwind.config.js` file is properly set up in a subdirectory if it exists elsewhere or configure it as needed.
-
-### PostCSS
-PostCSS processes CSS and JS files. If missing, install it via:
-```bash
-npm install --save-dev postcss autoprefixer
+```
+cmd/web/     Go HTTP server: routing, middleware, handlers, template rendering
+ui/          Frontend HTML/CSS embedded via //go:embed; templates render with html/template
+  ui/html/    base layout + page templates (home, projects, project detail pages)
+  ui/static/css/input.css   -> output.css (Tailwind build output)
+internal/{config,models,store}  Layered backend packages; config -> models -> store
+static-site/  Separate static GitHub Pages build (see below)
+docs/        Reference docs for agents and humans
 ```
 
-## Running the Project
-- **Development Mode**: Run `npm start` to start the server with hot-reloading.
-- **Production Build**: Run `npm run build` to generate optimized production files in the `dist/` directory.
+## Features
+
+- Project showcase: a projects index plus individual project pages.
+- Blog posts with a SQLite-backed schema (`internal/models/blogpost.go`).
+- User accounts modelled in `internal/models/users.go` (bcrypt-hashed passwords), with sessions, CSRF,
+  and nosurf middleware active on every route.
+- Static assets served from the embedded frontend under `/static/*filepath`.
+
+## Prerequisites
+
+- Go 1.27.x
+- [`air`](https://github.com/cosmtks/air) for hot-reloading dev runs (optional — see below)
+
+## Getting started
+
+### Dev server (`air`)
+
+`air` is the normal way to run it; it hot-reloads on change. `.air.toml` builds and runs:
+
+```bash
+go build -o ./tmp/main ./cmd/web   # then air runs ./tmp/main
+```
+
+- The Tailwind CLI watches `ui/static/css/input.css` and regenerates `output.css`; rebuild CSS after any
+  template or styling change.
+- `tmp/` is a **build artifact** — delete it before committing (it's gitignored).
+- If you don't have `air`, run the same command directly:
+
+```bash
+go build -o ./tmp/main ./cmd/web
+./tmp/main
+```
+
+### Configuration
+
+Reads from environment variables (loaded via `.env` in local dev):
+
+| Var        | Default            | Notes                          |
+| ---------- | ------------------ | ------------------------------ |
+| `PORT`     | `localhost:8080`   | Server bind address            |
+| `DB_PATH`  | `./data/app.db`    | SQLite database file           |
+| `UI_DIR`   | — (embedded)       | N/A; frontend is embedded      |
+
+## Routes
+
+| Path                          | Handler                    | Description              |
+| ----------------------------- | -------------------------- | ------------------------ |
+| `/`                          | `home`                     | Home page                |
+| `/projects`                  | `projectsList`             | Projects index           |
+| `/projects/custom-keyboard`  | `projectCustomKeyboardPage`| Project detail page      |
+| `/projects/project-two`      | `projectTwoPage`           | Project detail page      |
+| `/projects/project-three`    | `projectThreePage`         | Project detail page      |
+
+## Building a standalone binary
+
+```bash
+go build -o ./tmp/main ./cmd/web
+./tmp/main
+```
+
+Same command `air` uses, so it's what you get if/when air isn't running.
+
+## Deployment note: static GitHub Pages build
+
+`static-site/` is a **separate** static build (pre-rendered HTML + CSS) used to deploy this portfolio to
+GitHub Pages — it is not produced by the Go app and lives outside its own branch's normal flow. The Go
+app on `localhost:8080` is the live, template-driven version.
+
+## Verifying your change
+
+1. Confirm the dev server is running (`air`) and hit the affected route with `curl`.
+2. For template/CSS changes, wait for Tailwind to regenerate `output.css`, then reload.
+3. Run `go build ./internal/...` (and `./cmd/web/...`) — it must compile cleanly before you claim done.
 
 ## License
+
 This project is open-source and available under the [MIT License](LICENSE).
-
-## Contact
-For questions or contributions, please reach out:
-- Email: your.email@example.com
-- GitHub: [Your GitHub Profile](https://github.com/your-profile)
-
----
