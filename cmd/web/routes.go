@@ -29,7 +29,13 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodGet, "/projects/project-two", dynamic.ThenFunc(app.projectTwoPage))
 	router.Handler(http.MethodGet, "/projects/project-three", dynamic.ThenFunc(app.projectThreePage))
 
-	// router.Handler(http.MethodGet, "/user/logout", protected.ThenFunc(app.userLogoutPost))
+	// Auth: sign-in / registration (open), authenticated dashboard (protected).
+	protected := dynamic.Append(app.requireAuthentication)
+	router.Handler(http.MethodGet, "/user/login", dynamic.ThenFunc(app.loginPage))
+	router.Handler(http.MethodPost, "/user/login", dynamic.ThenFunc(app.loginPost))
+	router.Handler(http.MethodGet, "/user/signup", dynamic.ThenFunc(app.signupPage))
+	router.Handler(http.MethodPost, "/user/signup", dynamic.ThenFunc(app.signupPost))
+	router.Handler(http.MethodGet, "/user/dashboard", protected.ThenFunc(app.dashboard))
 
 	return standard.Then(router)
 }
